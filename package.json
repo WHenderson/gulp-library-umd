@@ -24,5 +24,17 @@
   "bugs": {
     "url": "https://github.com/WHenderson/gulp-library-umd/issues"
   },
-  "homepage": "https://github.com/WHenderson/gulp-library-umd#readme"
+  "homepage": "https://github.com/WHenderson/gulp-library-umd#readme",
+  "devDependencies": {
+    "coffee-coverage": "^1.0.1",
+    "coffee-script": "^1.10.0",
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-cli": "gulpjs/gulp-cli#4.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-spawn-mocha": "^2.2.2"
+  },
+  "dependencies": {
+    "event-stream": "^3.3.2",
+    "gulp-rimraf": "^0.2.0"
+  }
 }
