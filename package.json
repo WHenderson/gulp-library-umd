@@ -1,0 +1,28 @@
+{
+  "name": "gulp-library-umd",
+  "version": "1.0.0",
+  "description": "Gulp plugin for transforming node modules into various flavors of UMD (Universal Module Definition). Supports sourcemaps!",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WHenderson/gulp-library-umd.git"
+  },
+  "keywords": [
+    "gulp",
+    "gulp-plugin",
+    "UMD",
+    "sourcemap",
+    "sourcemaps",
+    "amd",
+    "commonjs"
+  ],
+  "author": "Will Henderson <whenderson.github@gmail.com> (https://github.com/WHenderson)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/WHenderson/gulp-library-umd/issues"
+  },
+  "homepage": "https://github.com/WHenderson/gulp-library-umd#readme"
+}
