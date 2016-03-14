@@ -29,6 +29,8 @@ tasks =
 
   watch: () ->
     gulp.watch('src', gulp.series('chained-2-test'))
+    gulp.watch('test', gulp.series('discrete-2-test'))
+    return
 
 do ->
   for taskName, task of tasks

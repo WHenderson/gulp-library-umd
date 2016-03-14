@@ -1,0 +1,4 @@
+define({{= it.jsonify(it.options.amd.libs) }}, function ({{= it.options.amd.args.join(', ') }}) {
+  {{= it.contents }}
+  return {{= it.options.exports }};
+});

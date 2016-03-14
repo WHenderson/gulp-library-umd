@@ -34,7 +34,10 @@
     "gulp-spawn-mocha": "^2.2.2"
   },
   "dependencies": {
+    "dot": "^1.0.3",
     "event-stream": "^3.3.2",
-    "gulp-rimraf": "^0.2.0"
+    "extend": "^3.0.0",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-util": "^3.0.7"
   }
 }
