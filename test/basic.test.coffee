@@ -65,4 +65,43 @@ suite('basic', () ->
   validate('exports', {
     exports: 'exports'
   })
+
+  for name in ['amd', 'node']
+    validate("#{name}-by-name", {
+      templateName: name
+      exports: 'exports'
+    })
+    validate("#{name}-by-path", {
+      templatePath: path.join(__dirname, "../templates/#{name}.dot")
+      exports: 'exports'
+    })
+    validate("#{name}-with-libs", {
+      templateName: name
+      require: {
+        argA: 'lib-a'
+        argB: {
+          name: 'lib-b',
+          amd: null
+          cjs: null
+          global: null
+          default: null
+        }
+        argC: {
+          name: 'lib-c',
+          amd: 'lib-c-amd'
+          cjs: 'lib-c-cjs'
+          global: 'lib-c-global'
+          default: 'lib-c-default'
+        }
+        argD: {
+          name: null,
+          amd: 'lib-d-amd'
+          cjs: 'lib-d-cjs'
+          global: 'lib-d-global'
+          default: 'lib-d-default'
+        }
+      }
+      exports: 'exports'
+    })
+
 )
