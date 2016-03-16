@@ -8,7 +8,11 @@ es = require('event-stream')
 defaultOptions = {
   templateCache: true
   templateName: 'amd.dot'
+  modes: ['cjs', 'amd', 'global', 'default']
 }
+
+# Needs to work unescaped in a regex
+MAGIC = '46e50563-66cc-4cd3-8dcf-46c527554f54'
 
 templateSettings = extend({}, dot.templateSettings, { strip: false })
 
@@ -22,7 +26,7 @@ wrap = (file, options, cb) ->
 
   options.require ?= {}
 
-  for mode in ['cjs', 'amd', 'global', 'default']
+  for mode in (options.modes ? [])
     options[mode] = {
       require: {}
       args: []
@@ -37,22 +41,31 @@ wrap = (file, options, cb) ->
     options[mode].args = Object.keys(options[mode].require)
     options[mode].libs = Object.keys(options[mode].require).map((k) -> options[mode].require[k])
 
-  render = () ->
-    new Buffer(it.options.template(it))
+  render = (contents) ->
+    contents = contents.toString()
+    it.trueContents = contents
+    it.contents = MAGIC
+
+    # render template with alternate content
+    output = it.options.template(it)
+
+    # replace template with indented content
+    output = output.replace(new RegExp('(?:^([ \t]*))?' + MAGIC, 'gm'), (match, indent) ->
+      return indent + contents.replace(/\r\n|\n/g, '\n' + indent)
+    )
+
+    # return a buffer
+    return new Buffer(output)
 
   if gutil.isStream(file.contents)
     es.wait((err, contents) ->
-      it.contents = contents
-      debugger
-      file.contents = render()
+      file.contents = render(contents)
       cb(null, file)
       return
     )
     return
   else
-    it.contents = file.contents
-    debugger
-    file.contents = render()
+    file.contents = render(file.contents)
     cb(null, file)
     return
 
