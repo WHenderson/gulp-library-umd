@@ -49,7 +49,7 @@ wrap = (file, options, cb) ->
     it.contents = MAGIC
 
     # render template with alternate content
-    output = it.options.template(it)
+    output = it.options.template(it).replace(/\r\n|\n/g, '\n')
 
     # replace template with indented content
     output = output.replace(new RegExp('(?:^([ \t]*))?' + MAGIC, 'gm'), (match, indent) ->
