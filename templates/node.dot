@@ -1,0 +1,4 @@
+(function ({{= it.options.cjs.args.join(', ') }}){
+  {{= it.contents }}
+  module.exports = {{= it.options.exports }};
+})({{= it.options.cjs.libs.map(function (lib) { return 'require(' + it.jsonify(lib) + ')'; }).join(', ') }});
