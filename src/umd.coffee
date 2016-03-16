@@ -7,7 +7,7 @@ es = require('event-stream')
 
 defaultOptions = {
   templateCache: true
-  templateName: 'amd.dot'
+  templateName: 'amd'
   modes: ['cjs', 'amd', 'global', 'default']
   indent: true
 }
@@ -61,15 +61,23 @@ wrap = (file, options, cb) ->
     # return a buffer
     return new Buffer(output)
 
+  rename = (file) ->
+    ext = it.options.templateName ? path.basename(it.options.templatePath, path.extename(it.options.templatePath))
+    if ext
+      file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + ext + path.extname(file.basename)
+    return
+
   if gutil.isStream(file.contents)
     es.wait((err, contents) ->
       file.contents = render(contents)
+      rename(file)
       cb(null, file)
       return
     )
     return
   else
     file.contents = render(file.contents)
+    rename(file)
     cb(null, file)
     return
 
@@ -86,7 +94,7 @@ module.exports = (overrides) ->
     options.namespace ?= name
 
     if options.templateName? and not options.templatePath?
-      options.templatePath = path.join(__dirname, '../templates', options.templateName)
+      options.templatePath = path.join(__dirname, '../templates', options.templateName + '.dot')
 
     if options.templatePath?
       if options.templateCache and cache[options.templatePath]?
