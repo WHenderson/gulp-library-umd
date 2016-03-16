@@ -38,7 +38,9 @@ wrap = (file, options, cb) ->
     }
 
     for own arg, lib of options.require
-      options[mode].require[arg] = if typeof lib == 'string' then lib else lib[mode] ? lib.name
+      lib = if typeof lib == 'string' then lib else (if lib[mode] != undefined then lib[mode] else lib.name)
+      if lib?
+        options[mode].require[arg] = lib
 
     options[mode].args = Object.keys(options[mode].require)
     options[mode].libs = Object.keys(options[mode].require).map((k) -> options[mode].require[k])
