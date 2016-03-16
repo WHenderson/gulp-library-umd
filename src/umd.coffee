@@ -9,6 +9,7 @@ defaultOptions = {
   templateCache: true
   templateName: 'amd.dot'
   modes: ['cjs', 'amd', 'global', 'default']
+  indent: true
 }
 
 # Needs to work unescaped in a regex
@@ -51,7 +52,10 @@ wrap = (file, options, cb) ->
 
     # replace template with indented content
     output = output.replace(new RegExp('(?:^([ \t]*))?' + MAGIC, 'gm'), (match, indent) ->
-      return indent + contents.replace(/\r\n|\n/g, '\n' + indent)
+      if it.options.indent
+        return indent + contents.replace(/\r\n|\n/g, '\n' + indent)
+      else
+        return contents
     )
 
     # return a buffer
