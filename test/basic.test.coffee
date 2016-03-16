@@ -4,6 +4,7 @@ rename = require('gulp-rename')
 fs = require('fs')
 es = require('event-stream')
 assert = require('chai').assert
+dot = require('dot')
 
 suite('basic', () ->
   umd = null
@@ -39,4 +40,29 @@ suite('basic', () ->
     )
 
   validate('defaults')
+  validate('with-libs', {
+    require: {
+      argA: 'lib-a'
+      argB: 'lib-b'
+      argC: { name: 'lib-c', amd: 'lib-c2' }
+    }
+  })
+  validate('no-indent', {
+    indent: false
+  })
+  validate('no-rename', {
+    rename: false
+  })
+  validate('by-path', {
+    templatePath: path.join(__dirname, '../templates/amd.dot')
+  })
+  validate('by-template-string', {
+    template: fs.readFileSync(path.join(__dirname, '../templates/amd.dot'), 'utf8')
+  })
+  validate('by-template-func', {
+    template: dot.template(fs.readFileSync(path.join(__dirname, '../templates/amd.dot'), 'utf8'))
+  })
+  validate('exports', {
+    exports: 'exports'
+  })
 )
