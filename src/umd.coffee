@@ -10,6 +10,7 @@ defaultOptions = {
   templateName: 'amd'
   modes: ['cjs', 'amd', 'global', 'default']
   indent: true
+  rename: true
 }
 
 # Needs to work unescaped in a regex
@@ -62,9 +63,10 @@ wrap = (file, options, cb) ->
     return new Buffer(output)
 
   rename = (file) ->
-    ext = it.options.templateName ? path.basename(it.options.templatePath, path.extename(it.options.templatePath))
-    if ext
-      file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + ext + path.extname(file.basename)
+    if it.options.rename
+      ext = it.options.templateName ? path.basename(it.options.templatePath, path.extename(it.options.templatePath))
+      if ext
+        file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + ext + path.extname(file.basename)
     return
 
   if gutil.isStream(file.contents)
