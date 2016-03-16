@@ -83,6 +83,7 @@ suite('basic', () ->
           name: 'lib-b',
           amd: null
           cjs: null
+          node: null
           global: null
           default: null
         }
@@ -90,6 +91,7 @@ suite('basic', () ->
           name: 'lib-c',
           amd: 'lib-c-amd'
           cjs: 'lib-c-cjs'
+          node: 'lib-c-node'
           global: 'lib-c-global'
           default: 'lib-c-default'
         }
@@ -97,6 +99,7 @@ suite('basic', () ->
           name: null,
           amd: 'lib-d-amd'
           cjs: 'lib-d-cjs'
+          node: 'lib-d-node'
           global: 'lib-d-global'
           default: 'lib-d-default'
         }

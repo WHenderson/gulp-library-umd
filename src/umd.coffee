@@ -8,7 +8,7 @@ es = require('event-stream')
 defaultOptions = {
   templateCache: true
   templateName: 'amd'
-  modes: ['cjs', 'amd', 'global', 'default']
+  modes: ['cjs', 'node', 'amd', 'global', 'default']
   indent: true
   rename: true
 }
