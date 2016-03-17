@@ -39,14 +39,45 @@ suite('basic', () ->
       .on('end', cb)
     )
 
-  validate('defaults')
   validate('with-libs', {
     require: {
       argA: 'lib-a'
-      argB: 'lib-b'
-      argC: { name: 'lib-c', amd: 'lib-c2' }
+      argB: {
+        name: 'lib-b',
+        amd: null
+        cjs: null
+        node: null
+        global: null
+        default: null
+      }
+      argC: {
+        name: 'lib-c',
+        amd: 'lib-c-amd'
+        cjs: 'lib-c-cjs'
+        node: 'lib-c-node'
+        global: 'lib-c-global'
+        default: 'lib-c-default'
+      }
+      argD: {
+        name: null,
+        amd: 'lib-d-amd'
+        cjs: 'lib-d-cjs'
+        node: 'lib-d-node'
+        global: 'lib-d-global'
+        default: 'lib-d-default'
+      }
     }
   })
+  validate('with-same-libs', {
+    require: {
+      argA: 'lib-a'
+      argB: 'lib-c'
+      argC: 'lib-c'
+    }
+  })
+
+  return
+  validate('defaults')
   validate('no-indent', {
     indent: false
   })

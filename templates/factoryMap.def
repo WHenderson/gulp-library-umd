@@ -1,0 +1,1 @@
+function ({{= it.apply.args }}) { return factory({{= it.apply.factoryArgs }}); }

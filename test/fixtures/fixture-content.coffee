@@ -1,2 +1,2 @@
-module.exports = () ->
+exports = () ->
   return 'coffee module'

@@ -1,0 +1,4 @@
+function ({{= it.factory.args.join(', ') }}) { {{= '\n' }}
+  {{= it.contents }}{{= '\n' }}
+  return {{= it.options.exports }};{{= '\n' }}
+}

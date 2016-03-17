@@ -1,0 +1,5 @@
+{{? JSON.stringify(it.apply.args) == JSON.stringify(it.factory.args) }}
+{{#def.factory}}
+{{??}}
+function ({{= it.apply.args }}) { return ({{#def.factory}})({{= it.apply.factoryArgs }}); }
+{{?}}

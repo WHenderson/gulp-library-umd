@@ -1,4 +1,3 @@
-define({{= it.jsonify(it.options.amd.libs) }}, function ({{= it.options.amd.args.join(', ') }}) {
-  {{= it.contents }}
-  return {{= it.options.exports }};
-});
+{{ it.apply = { args: it.mode.amd.args, factoryArgs: it.mode.amd.factoryArgs }; }}
+define({{= JSON.stringify(it.mode.amd.libs) }}, {{#def.factoryMapped}});
+

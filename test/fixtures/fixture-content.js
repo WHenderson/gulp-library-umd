@@ -1,3 +1,3 @@
-module.exports = function () {
+var exports = function () {
   return 'js module';
 };
