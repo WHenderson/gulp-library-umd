@@ -6,28 +6,30 @@ gutil = require('gulp-util')
 es = require('event-stream')
 
 defaultOptions = {
-## cache rendered templates?
+  ## cache rendered templates?
   templateCache: true
 
-## default template to use
-  templateName: 'amd'
+  ## default template to use
+  templateName: undefined
+  templatePath: undefined
+  template: undefined
 
-## list of distinct modes to support
-  modes: ['cjs', 'node', 'amd', 'global']
+  ## list of distinct modes to support
+  modes: ['cjs', 'node', 'amd', 'web']
 
-## indent content according to the template
+  ## indent content according to the template
   indent: true
 
-## suffix the outgoing file basename with the template name
+  ## suffix the outgoing file basename with the template name
   rename: true
 
-## argName/libName mapping of all requires
+  ## argName/libName mapping of all requires
   require: {}
 
-## name of item to export
+  ## name of item to export
   exports: 'exports'
 
-## namespace of item when used in global namespace
+  ## namespace of item when used in global namespace
   namespace: undefined
 }
 
@@ -36,7 +38,7 @@ templatesBase = path.join(__dirname, '../templates')
 compile = (templateSource) ->
   dot.template(templateSource, compile.settings, compile.defines)
 
-compile.settings = extend({}, dot.templateSettings, { strip: true })
+compile.settings = extend({}, dot.templateSettings, { strip: false })
 
 compile.defines = do ->
   defines = {}
@@ -81,7 +83,7 @@ rename = (file, options) ->
   if options.rename
     ext = options.templateName ? path.basename(options.templatePath, path.extename(options.templatePath))
     if ext
-      file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + ext + path.extname(file.basename)
+      file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + ext #+ path.extname(file.basename)
   return
 
 jsonify = (data) ->
@@ -124,6 +126,9 @@ wrap = (file, options, cb) ->
         it.mode[mode].libs.push(lib)
       it.mode[mode].factoryArgs.push(if lib? then arg else 'void 0')
 
+  if it.mode.web?
+    it.mode.web.libs = it.mode.web.libs.map((lib) -> "root.#{lib}")
+
   if gutil.isStream(file.contents)
     es.wait((err, contents) ->
       if err?
@@ -146,7 +151,7 @@ pipe = (overrides) ->
   cache = {}
 
   return es.map((file, cb) ->
-# allow gulp-data to override
+    # allow gulp-data to override
     options = extend(true, {}, file.data, overrides)
 
     # default namespace
@@ -156,6 +161,8 @@ pipe = (overrides) ->
 
     # templateName
     if options.templateName? and not options.templatePath?
+      if path.extname(options.templateName) == ''
+        options.templateName += path.extname(file.path)
       options.templatePath = path.join(templatesBase, options.templateName + '.dot')
 
     # templatePath
@@ -177,9 +184,12 @@ pipe = (overrides) ->
           wrap(file, options, cb)
         )
     else
-# template
+      # template
       if typeof options.template == 'string'
         options.template = compile(options.template)
+
+      if not options.template?
+        throw new Error('No template specified')
 
       wrap(file, options, cb)
   )

@@ -1,5 +1,1 @@
-{{? JSON.stringify(it.apply.args) == JSON.stringify(it.factory.args) }}
-{{#def.factory}}
-{{??}}
-function ({{= it.apply.args }}) { return ({{#def.factory}})({{= it.apply.factoryArgs }}); }
-{{?}}
+{{? JSON.stringify(it.apply.args) == JSON.stringify(it.factory.args) }}factory{{??}}(function ({{= it.apply.args }}) { return factory({{= it.apply.factoryArgs }}); }){{?}}
