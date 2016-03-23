@@ -1,0 +1,1 @@
+{{= JSON.stringify({ it: it }, null, 2) }}

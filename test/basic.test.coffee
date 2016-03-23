@@ -23,6 +23,14 @@ suite('basic', () ->
 
   validate = (name, options, expectedError) ->
     test(name, (cb) ->
+
+      testPath = []
+      node = @test.parent
+      while node?
+        testPath.unshift(node.title)
+        node = node.parent
+      testPath = path.join.apply(null, testPath.slice(2))
+
       try
         gulp
         .src(path.join(__dirname, 'fixtures/fixture-content.js'))
@@ -41,9 +49,9 @@ suite('basic', () ->
           @emit('end')
           @end()
         )
-        .pipe(gulp.dest(path.join(__dirname, 'found')))
+        .pipe(gulp.dest(path.join(__dirname, 'found', testPath)))
         .pipe(es.map((file, cb) ->
-          fs.readFile(path.join(__dirname, 'expected', file.basename), 'utf8', (err, data) ->
+          fs.readFile(path.join(__dirname, 'expected', testPath, file.basename), 'utf8', (err, data) ->
             if err?
               return cb(err)
 
@@ -69,35 +77,9 @@ suite('basic', () ->
       return
     )
 
-  suite('partial', () ->
-    suite('defineFactory', () ->
-      validate('default', {
-        templateName: 'partial/defineFactory'
-      })
-    )
+  suite('context', () ->
+    validate('default', {
+      templateName: 'context.dot'
+    })
   )
-
-  #validate('default', undefined, 'No template specified')
-
-  if false
-    validate('templateName-amdWeb', {
-      templateName: 'amdWeb'
-    })
-    validate('templateName-amdWebGlobal', {
-      templateName: 'amdWebGlobal'
-    })
-    validate('templateName-commonjsAdapter', {
-      templateName: 'commonjsAdapter'
-      require: {
-        a: 'lib-a'
-        b: 'lib-b'
-      }
-    })
-    validate('templateName-commonjsStrict', {
-      templateName: 'commonjsStrict'
-      require: {
-        a: 'lib-a'
-        b: 'lib-b'
-      }
-    })
 )
