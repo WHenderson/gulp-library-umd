@@ -140,9 +140,6 @@ wrap = (file, options, cb) ->
         it.mode[mode].libStrings.push(JSON.stringify(lib))
       it.mode[mode].factoryArgs.push(if lib? then arg else 'void 0')
 
-  if it.mode.web?
-    it.mode.web.libs = it.mode.web.libs.map((lib) -> "root.#{lib}")
-
   if gutil.isStream(file.contents)
     es.wait((err, contents) ->
       if err?

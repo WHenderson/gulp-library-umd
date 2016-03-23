@@ -173,5 +173,21 @@ suite('basic', () ->
         }
       })
     )
+
+    suite('globals', () ->
+      validate('default.js', {
+        templatePath: path.join(__dirname, 'fixtures/templates/globals.dot')
+      })
+
+      validate('requires.js', {
+        templatePath: path.join(__dirname, 'fixtures/templates/globals.dot')
+        require: {
+          libA: 'lib-a'
+          libB: { name: 'lib-b' }
+          libC: { name: 'lib-c', amd: 'lib-c-amd'}
+          libD: { name: 'lib-d', amd: null }
+        }
+      })
+    )
   )
 )

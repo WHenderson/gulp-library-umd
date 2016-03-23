@@ -1,0 +1,3 @@
+{{? false}}
+Array of requires statements for each library
+{{?}}{{~ it.mode[mode].libs : name : index}}{{? index != 0 }}, {{?}}root.{{= name}}{{~}}
