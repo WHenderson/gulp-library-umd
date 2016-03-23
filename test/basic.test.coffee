@@ -22,7 +22,7 @@ suite('basic', () ->
   )
 
   validate = (name, options, expectedError) ->
-    test(name, (cb) ->
+    test(path.basename(name, path.extname(name)), (cb) ->
 
       testPath = []
       node = @test.parent
@@ -33,9 +33,15 @@ suite('basic', () ->
 
       try
         gulp
-        .src(path.join(__dirname, 'fixtures/fixture-content.js'))
-        .pipe(rename((path) =>
-          path.basename = name
+        .src(path.join(__dirname, 'fixtures/fixture-content' + (path.extname(name) ? '.js')))
+        .pipe(rename((p) =>
+          ext = path.extname(name)
+          if ext?
+            p.basename = path.basename(name, ext)
+            p.extname = ext
+          else
+            p.basename = name
+          return
         ))
         .pipe(umd(options))
         .on('error', (err) ->
@@ -78,8 +84,9 @@ suite('basic', () ->
     )
 
   suite('context', () ->
-    validate('default', {
+    validate('default.json', {
       templateName: 'context.dot'
     })
+
   )
 )
