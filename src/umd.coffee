@@ -83,13 +83,18 @@ render = (it, contents) ->
 
 rename = (file, options) ->
   if options.rename and (options.templateName? or options.templatePath?)
-    if options.templateName?
-      ext = path.basename(options.templateName, path.extname(options.templateName))
-    else
-      ext = path.basename(options.templatePath, path.extname(options.templatePath))
+    ext = path.extname(options.templatePath)
+    name = path.basename(options.templatePath, ext)
 
-    if ext?
-      file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + ext.replace(/\\\//g, '-') + path.extname(file.basename)
+    if ext == '.dot' or ext == '.def'
+      ext = path.extname(name)
+      name = path.basename(name, ext)
+
+    if not ext? or ext == ''
+      ext = path.extname(file.basename)
+
+    if name? and name != ''
+      file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + name.replace(/\\\//g, '-') + ext
   return
 
 jsonify = (data) ->
