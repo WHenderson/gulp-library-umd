@@ -190,4 +190,12 @@ suite('basic', () ->
       })
     )
   )
+
+  suite('templates', () ->
+    suite('amdWeb', () ->
+      validate('default.js', {
+        templateName: 'amdWeb.js'
+      })
+    )
+  )
 )

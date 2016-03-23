@@ -18,11 +18,11 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        {{ it.apply = { args: it.mode.amd.args, factoryArgs: it.mode.amd.factoryArgs }; }}
-        define({{= JSON.stringify(it.mode.amd.libs) }}, {{#def.factoryMapped}});
+        {{ mode = 'amd'; }}
+        define([{{= it.mode[mode].libStrings }}], {{#def.defineFactoryMapped}});
     } else {
         // Browser globals
-        {{ it.apply = { args: it.mode.web.args, factoryArgs: it.mode.web.factoryArgs }; }}
-        root.amdWeb = {{#def.factoryMapped}}({{= it.mode.web.libs.join(', ') }});
+        {{ mode = 'web'; }}
+        root.{{= it.options.namespace }} = {{#def.defineFactoryMapped}}({{#def.globals}});
     }
-}(this, {{#def.factory}}));
+}(this, {{#def.defineFactory}}));
