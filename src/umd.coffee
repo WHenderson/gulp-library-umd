@@ -71,7 +71,7 @@ render = (it, contents) ->
   output = it.options.template(it).replace(/\r\n|\n/g, '\n')
 
   # replace template with indented content
-  output = output.replace(new RegExp('(?:^([ \t]*))?' + MAGIC, 'gm'), (match, indent = '') ->
+  output = output.replace(new RegExp('(?:^([ \t]*))?' + MAGIC.replace(/\(/g, '\\(').replace(/\)/g, '\\)'), 'gm'), (match, indent = '') ->
     if it.options.indent
       return indent + contents.replace(/\r\n|\n/g, '\n' + indent)
     else
