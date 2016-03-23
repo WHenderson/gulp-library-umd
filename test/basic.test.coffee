@@ -142,7 +142,6 @@ suite('basic', () ->
       })
     )
 
-
     suite('defineFactoryMapped', () ->
       validate('default.js', {
         templatePath: path.join(__dirname, 'fixtures/templates/defineFactoryMapped.dot')
@@ -159,5 +158,20 @@ suite('basic', () ->
       })
     )
 
+    suite('requires', () ->
+      validate('default.js', {
+        templatePath: path.join(__dirname, 'fixtures/templates/requires.dot')
+      })
+
+      validate('requires.js', {
+        templatePath: path.join(__dirname, 'fixtures/templates/requires.dot')
+        require: {
+          libA: 'lib-a'
+          libB: { name: 'lib-b' }
+          libC: { name: 'lib-c', amd: 'lib-c-amd'}
+          libD: { name: 'lib-d', amd: null }
+        }
+      })
+    )
   )
 )

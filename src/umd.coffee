@@ -122,6 +122,7 @@ wrap = (file, options, cb) ->
       requireArray: []
       args: []
       libs: []
+      libStrings: []
       factoryArgs: []
     }
 
@@ -132,9 +133,11 @@ wrap = (file, options, cb) ->
         it.mode[mode].requireArray.push({
           arg: arg
           lib: lib
+          libString: JSON.stringify(lib)
         })
         it.mode[mode].args.push(arg)
         it.mode[mode].libs.push(lib)
+        it.mode[mode].libStrings.push(JSON.stringify(lib))
       it.mode[mode].factoryArgs.push(if lib? then arg else 'void 0')
 
   if it.mode.web?

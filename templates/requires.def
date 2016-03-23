@@ -1,0 +1,3 @@
+{{? false}}
+Array of requires statements for each library
+{{?}}{{~ it.mode[mode].libStrings : libString : index}}{{? index != 0 }}, {{?}}require({{= libString}}){{~}}
