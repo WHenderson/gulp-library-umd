@@ -3,6 +3,7 @@ g =
   rimraf: require('gulp-rimraf')
   coffee: require('gulp-coffee')
   mocha: require('gulp-spawn-mocha')
+  util: require('gulp-util')
 
 tasks =
   clean: () ->
@@ -29,6 +30,7 @@ tasks =
 
   watch: () ->
     gulp.watch('src', gulp.series('chained-2-test'))
+    gulp.watch('templates', gulp.series('discrete-2-test'))
     gulp.watch('test', gulp.series('discrete-2-test'))
     return
 
@@ -44,6 +46,13 @@ gulp.task('discrete-3-watch', tasks.watch)
 gulp.task('chained-0-clean', gulp.series('discrete-0-clean'))
 gulp.task('chained-1-build', gulp.series('chained-0-clean', 'discrete-1-build'))
 gulp.task('chained-2-test', gulp.series('chained-1-build', 'discrete-2-test'))
-gulp.task('chained-3-watch', gulp.series('chained-2-test', 'discrete-3-watch'))
+gulp.task('chained-3-watch', gulp.series(
+  'chained-1-build',
+  () ->
+    tasks
+    .test()
+    .on('error', g.util.log)
+  'discrete-3-watch'
+))
 
 gulp.task('default', gulp.series('chained-2-test'))
