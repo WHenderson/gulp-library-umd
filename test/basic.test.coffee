@@ -88,5 +88,15 @@ suite('basic', () ->
       templateName: 'context.dot'
     })
 
+    validate('requires.json', {
+      templateName: 'context.dot'
+      require: {
+        libA: 'lib-a'
+        libB: { name: 'lib-b' }
+        libC: { name: 'lib-c', amd: 'lib-c-amd'}
+        libD: { name: 'lib-d', amd: null }
+      }
+    })
+
   )
 )
