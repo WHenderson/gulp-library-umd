@@ -60,9 +60,8 @@ namespace = (filePath) ->
   .replace(/\W/g, '')
 
 render = (it, contents) ->
-  MAGIC = '46e50563-66cc-4cd3-8dcf-46c527554f54'
+  MAGIC = '(void "46e50563-66cc-4cd3-8dcf-46c527554f54")'
   contents = contents.toString()
-
 
   # Use a placeholder for contents
   it.trueContents = contents
@@ -85,12 +84,12 @@ render = (it, contents) ->
 rename = (file, options) ->
   if options.rename and (options.templateName? or options.templatePath?)
     if options.templateName?
-      ext = options.templateName.replace(/\\\//g, '-')
+      ext = path.basename(options.templateName, path.extname(options.templateName))
     else
-      ext = path.basename(options.templatePath, path.extename(options.templatePath))
+      ext = path.basename(options.templatePath, path.extname(options.templatePath))
 
-    if ext
-      file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + ext #+ path.extname(file.basename)
+    if ext?
+      file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + ext.replace(/\\\//g, '-') + path.extname(file.basename)
   return
 
 jsonify = (data) ->
