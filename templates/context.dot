@@ -1,1 +1,3 @@
-{{= JSON.stringify({ it: it }, null, 2) }}
+{{? false}}
+Render context as JSON
+{{?}}{{= JSON.stringify({ it: it }, null, 2) }}
