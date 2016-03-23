@@ -130,6 +130,34 @@ suite('basic', () ->
         templatePath: path.join(__dirname, '../templates/defineFactory.def')
         exports: ['exportA', 'exportB', 'exportC']
       })
+
+      validate('requires.js', {
+        templatePath: path.join(__dirname, '../templates/defineFactory.def')
+        require: {
+          libA: 'lib-a'
+          libB: { name: 'lib-b' }
+          libC: { name: 'lib-c', amd: 'lib-c-amd'}
+          libD: { name: 'lib-d', amd: null }
+        }
+      })
     )
+
+
+    suite('defineFactoryMapped', () ->
+      validate('default.js', {
+        templatePath: path.join(__dirname, 'fixtures/templates/defineFactoryMapped.dot')
+      })
+
+      validate('requires.js', {
+        templatePath: path.join(__dirname, 'fixtures/templates/defineFactoryMapped.dot')
+        require: {
+          libA: 'lib-a'
+          libB: { name: 'lib-b' }
+          libC: { name: 'lib-c', amd: 'lib-c-amd'}
+          libD: { name: 'lib-d', amd: null }
+        }
+      })
+    )
+
   )
 )

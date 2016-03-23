@@ -1,0 +1,3 @@
+{{? false }}
+Function which takes the arguments for the current mode and calls the standard factory
+{{?}}{{? JSON.stringify(it.mode[mode].args) == JSON.stringify(it.factory.args) }}factory{{??}}(function ({{= it.mode[mode].args }}) { return factory({{= it.mode[mode].factoryArgs }}); }){{?}}

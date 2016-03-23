@@ -1,0 +1,4 @@
+{{~ it.options.modes : mode }}// {{= mode}}
+{{#def.defineFactoryMapped}}
+
+{{~}}
