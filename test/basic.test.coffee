@@ -97,6 +97,39 @@ suite('basic', () ->
         libD: { name: 'lib-d', amd: null }
       }
     })
+  )
 
+  suite('snippets', () ->
+    suite('exports', () ->
+      validate('default.js', {
+        templatePath: path.join(__dirname, '../templates/exports.def')
+      })
+
+      validate('string.js', {
+        templatePath: path.join(__dirname, '../templates/exports.def')
+        exports: 'myExports'
+      })
+
+      validate('array.js', {
+        templatePath: path.join(__dirname, '../templates/exports.def')
+        exports: ['exportA', 'exportB', 'exportC']
+      })
+    )
+
+    suite('defineFactory', () ->
+      validate('default.js', {
+        templatePath: path.join(__dirname, '../templates/defineFactory.def')
+      })
+
+      validate('string.js', {
+        templatePath: path.join(__dirname, '../templates/defineFactory.def')
+        exports: 'myExports'
+      })
+
+      validate('array.js', {
+        templatePath: path.join(__dirname, '../templates/defineFactory.def')
+        exports: ['exportA', 'exportB', 'exportC']
+      })
+    )
   )
 )

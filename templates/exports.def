@@ -1,0 +1,3 @@
+{{? false}}
+The exported variable/variables.
+{{?}}{{? typeof it.options.exports === 'string' }}{{= it.options.exports }}{{??}}{ {{~ it.options.exports : name : index}}{{? index != 0}},{{?}} {{= name }}: {{= name }}{{~}} }{{?}}

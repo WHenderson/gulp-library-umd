@@ -1,0 +1,4 @@
+function ({{= it.factory.args.join(', ') }}) {
+  {{= it.contents }}
+  return {{#def.exports}};
+}
