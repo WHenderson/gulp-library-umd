@@ -175,7 +175,9 @@ pipe = (overrides) ->
     if options.templateName? and not options.templatePath?
       if path.extname(options.templateName) == ''
         options.templateName += path.extname(file.path)
-      options.templatePath = path.join(templatesBase, options.templateName + '.dot')
+      else if path.extname(options.templateName) != '.dot'
+        options.templateName += '.dot'
+      options.templatePath = path.join(templatesBase, options.templateName)
 
     # templatePath
     if options.templatePath?
