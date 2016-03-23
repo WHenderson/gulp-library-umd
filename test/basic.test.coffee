@@ -5,17 +5,18 @@ fs = require('fs')
 es = require('event-stream')
 assert = require('chai').assert
 dot = require('dot')
-rimraf = require('gulp-rimraf')
+del = require('del')
 
 suite('basic', () ->
   umd = null
 
-  setup((cb) ->
+  suiteSetup((cb) ->
     umd = require('../src/umd')
 
-    gulp.src(path.join(__dirname, 'found'), { read: false, allowEmpty: true })
-    .pipe(rimraf())
-    .on('finish', cb)
+    del(path.join(__dirname, 'found'))
+    .then(() ->
+      cb()
+    )
 
     return
   )
@@ -30,10 +31,13 @@ suite('basic', () ->
         ))
         .pipe(umd(options))
         .on('error', (err) ->
-          assert.throws(
-            () -> throw err
-            expectedError
-          )
+          if expectedError?l
+            assert.throws(
+              () -> throw err
+              expectedError
+            )
+          else
+            throw err
           @emit('end')
           @end()
         )
@@ -55,12 +59,45 @@ suite('basic', () ->
         .on('end', cb)
       catch err
         console.log('hmm')
-        assert.throws(
-          () -> throw err
-          expectedError
-        )
+        if expectedError?
+          assert.throws(
+            () -> throw err
+            expectedError
+          )
+        else
+          cb(err)
       return
     )
 
-  validate('default', undefined, 'No template specified')
+  suite('partial', () ->
+    suite('defineFactory', () ->
+      validate('default', {
+        templateName: 'partial/defineFactory'
+      })
+    )
+  )
+
+  #validate('default', undefined, 'No template specified')
+
+  if false
+    validate('templateName-amdWeb', {
+      templateName: 'amdWeb'
+    })
+    validate('templateName-amdWebGlobal', {
+      templateName: 'amdWebGlobal'
+    })
+    validate('templateName-commonjsAdapter', {
+      templateName: 'commonjsAdapter'
+      require: {
+        a: 'lib-a'
+        b: 'lib-b'
+      }
+    })
+    validate('templateName-commonjsStrict', {
+      templateName: 'commonjsStrict'
+      require: {
+        a: 'lib-a'
+        b: 'lib-b'
+      }
+    })
 )

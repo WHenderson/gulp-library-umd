@@ -24,9 +24,12 @@ defaultOptions = {
   rename: true
 
   ## argName/libName mapping of all requires
+  ## argName/{ name:libName, mode: libName, ..} mapping of all requires
+  ## specify a null lib name to not require the module in a particular environment
   require: {}
 
-  ## name of item to export
+  ## string: name of item to export
+  ## array : names of items to export
   exports: 'exports'
 
   ## namespace of item when used in global namespace
@@ -80,8 +83,12 @@ render = (it, contents) ->
   return new Buffer(output)
 
 rename = (file, options) ->
-  if options.rename
-    ext = options.templateName ? path.basename(options.templatePath, path.extename(options.templatePath))
+  if options.rename and (options.templateName? or options.templatePath?)
+    if options.templateName?
+      ext = options.templateName.replace(/\\\//g, '-')
+    else
+      ext = path.basename(options.templatePath, path.extename(options.templatePath))
+
     if ext
       file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + ext #+ path.extname(file.basename)
   return
@@ -113,6 +120,7 @@ wrap = (file, options, cb) ->
   for mode in modes
     it.mode[mode] = {
       require: {}
+      requireArray: []
       args: []
       libs: []
       factoryArgs: []
@@ -122,6 +130,10 @@ wrap = (file, options, cb) ->
       lib = if typeof lib == 'string' then lib else (if lib[mode] != undefined then lib[mode] else lib.name)
       if lib?
         it.mode[mode].require[arg] = lib
+        it.mode[mode].requireArray.push({
+          arg: arg
+          lib: lib
+        })
         it.mode[mode].args.push(arg)
         it.mode[mode].libs.push(lib)
       it.mode[mode].factoryArgs.push(if lib? then arg else 'void 0')
