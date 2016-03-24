@@ -117,6 +117,22 @@ suite('basic', () ->
       })
     )
 
+    suite('exportsCjs', () ->
+      validate('default.js', {
+        templatePath: path.join(__dirname, '../templates/exportsCjs.def')
+      })
+
+      validate('string.js', {
+        templatePath: path.join(__dirname, '../templates/exportsCjs.def')
+        exports: 'myExports'
+      })
+
+      validate('array.js', {
+        templatePath: path.join(__dirname, '../templates/exportsCjs.def')
+        exports: ['exportA', 'exportB', 'exportC']
+      })
+    )
+
     suite('defineFactory', () ->
       validate('default.js', {
         templatePath: path.join(__dirname, '../templates/defineFactory.def')

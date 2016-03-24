@@ -1,0 +1,10 @@
+{{? false}}
+The exported variable/variables.
+{{?}}{{? typeof it.options.exports === 'string' }}{{? it.options.exports != 'exports'}}
+(function () {
+  for (var _$key in {{= it.options.exports }}) {
+    if ({}.hasOwnProperty.call({{= it.options.exports }}, _$key))
+      exports[_$key] = {{= it.options.exports }}[_$key];
+  }
+})();{{?}}{{??}}{{~ it.options.exports : name : index}}
+exports.{{= name }} = {{= name }};{{~}}{{?}}
