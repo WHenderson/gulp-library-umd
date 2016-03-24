@@ -243,7 +243,7 @@ suite('basic', () ->
       }
     ]
 
-    for template in ['amdWeb', 'amdWebGlobal']
+    for template in ['amdWeb', 'amdWebGlobal', 'commonjsAdapter']
       do (template) ->
         suite(template, () ->
           for optionsSet in optionSets

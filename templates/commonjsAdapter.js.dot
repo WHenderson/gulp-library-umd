@@ -16,9 +16,12 @@ if (typeof exports === 'object' && typeof exports.nodeName !== 'string' && typeo
 }
 
 define(function (require, exports, module) {
-    var b = require('b');
+    {{ mode = 'cjs'; }}
+    {{#def.requiresVars}}
+
+    {{= it.contents }}
 
     // Only attach properties to the exports object to define
     // the module's properties.
-    exports.action = function () {};
+    {{#def.exportsCjs}}
 });
