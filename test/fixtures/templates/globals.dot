@@ -1,4 +1,7 @@
 {{~ it.options.modes : mode }}// {{= mode}}
+// globals
 {{#def.globals}}
+// globalsMapped
+{{#def.globalsMapped}}
 
 {{~}}
