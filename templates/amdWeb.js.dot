@@ -23,6 +23,6 @@
     } else {
         // Browser globals
         {{ mode = 'web'; }}
-        root.{{= it.options.namespace }} = {{#def.defineFactoryMapped}}({{#def.globals}});
+        root.{{= it.options.namespace }} = factory({{#def.globalsMapped}});
     }
 }(this, {{#def.defineFactory}}));

@@ -1,0 +1,3 @@
+{{? false}}
+Global variables of each library, with undefined variables mapped in
+{{?}}{{~ it.factory.args : name : index}}{{? index != 0 }}, {{?}}{{? it.mode[mode].require[name]}}root.{{= it.mode[mode].require[name] }}{{??}}void 0{{?}}{{~}}

@@ -6,6 +6,7 @@ es = require('event-stream')
 assert = require('chai').assert
 dot = require('dot')
 del = require('del')
+extend = require('extend')
 
 suite('basic', () ->
   umd = null
@@ -191,11 +192,48 @@ suite('basic', () ->
     )
   )
 
+
+
   suite('templates', () ->
-    suite('amdWeb', () ->
-      validate('default.js', {
-        templateName: 'amdWeb.js'
-      })
-    )
+    templates = [
+      'amdWeb'
+    ]
+    optionSets = [
+      {
+        description: 'default'
+      }
+      {
+        description: 'libs'
+        require: {
+          libA: 'lib-a'
+          libB: 'lib-b'
+          libC: 'lib-c'
+        }
+      }
+      {
+        description: 'distinct-libs'
+        require: {
+          libA: { name: 'lib-a', cjs: null, node: null, amd: null, web: null }
+          libB: { name: 'lib-b', cjs: 'lib-b-cjs', node: 'lib-b-node', amd: 'lib-b-amd', web: 'libBWeb' }
+        }
+      }
+      {
+        description: 'exports-string'
+        exports: 'myExports'
+      }
+      {
+        description: 'exports-array'
+        exports: ['my1stExport', 'my2ndExport']
+      }
+    ]
+
+    for template in ['amdWeb']
+      do (template) ->
+        suite(template, () ->
+          for optionsSet in optionSets
+            do (optionsSet) ->
+              options = extend({}, optionsSet, { templateName: template })
+              validate(optionsSet.description + '.js', options)
+        )
   )
 )
