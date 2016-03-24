@@ -227,7 +227,7 @@ suite('basic', () ->
       }
     ]
 
-    for template in ['amdWeb']
+    for template in ['amdWeb', 'amdWebGlobal']
       do (template) ->
         suite(template, () ->
           for optionsSet in optionSets
