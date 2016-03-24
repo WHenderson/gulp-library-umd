@@ -1,0 +1,3 @@
+{{? false}}
+Requires statements for each library
+{{?}}{{~ it.mode[mode].requireArray : item : index}}{{? index == 0 }}var {{??}}, {{?}}{{= item.arg}} = require({{= item.libString}}){{~}}{{? it.mode[mode].requireArray.length != 0}};{{?}}

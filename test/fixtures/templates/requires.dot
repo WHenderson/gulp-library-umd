@@ -1,4 +1,7 @@
 {{~ it.options.modes : mode }}// {{= mode}}
+// requires
 {{#def.requires}}
+// requiresVars
+{{#def.requiresVars}}
 
 {{~}}
