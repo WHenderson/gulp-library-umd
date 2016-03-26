@@ -1,0 +1,3 @@
+{{? false }}
+Function which takes the arguments for the current mode and calls the standard factory
+{{?}}{{? !it.mode[mode].global && JSON.stringify(it.mode[mode].args) == JSON.stringify(it.factory.args) }}factory{{??}}function (exports{{?it.mode[mode].args.length != 0}}, {{?}}{{= it.mode[mode].args }}) { return {{? it.mode[mode].global}}root.{{= it.options.namespace }} = {{?}}factory(exports{{?it.mode[mode].factoryArgs.length != 0}}, {{?}}{{= it.mode[mode].factoryArgs }}); }{{?}}

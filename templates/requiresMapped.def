@@ -1,0 +1,3 @@
+{{? false}}
+Requires statements for each library
+{{?}}{{~ it.factory.args : arg : index}}{{? index != 0 }}, {{?}}{{? it.mode[mode].require[arg] }}require({{= JSON.stringify(it.mode[mode].require[arg]) }}){{??}}void 0{{?}}{{~}}
