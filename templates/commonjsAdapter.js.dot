@@ -16,12 +16,29 @@ if (typeof exports === 'object' && typeof exports.nodeName !== 'string' && typeo
 }
 
 define(function (require, exports, module) {
+    {{? JSON.stringify(it.mode.amd) != JSON.stringify(it.mode.cjs) }}
+    if (define.amd) {
+      {{ mode = 'amd'; }}
+      {{#def.requiresVars}}
+    }
+    else {
+      {{ mode = 'cjs'; }}
+      {{#def.requiresVars}}
+    }
+    {{??}}
     {{ mode = 'cjs'; }}
     {{#def.requiresVars}}
+    {{?}}
 
-    {{= it.contents }}
-
-    // Only attach properties to the exports object to define
-    // the module's properties.
-    {{#def.exportsCjs}}
+    (function (results) {
+      {{? typeof it.options.exports === 'string' }}
+      for (var key in results) {
+        if ({}.hasOwnProperty.call(results, key))
+          exports[key] = results[key];
+      }
+      {{??}}
+      {{~ it.options.exports : name }}
+      exports.{{= name }} = results.{{= name }};{{~}}
+      {{?}}
+    })(({{#def.defineFactory}})());
 });
