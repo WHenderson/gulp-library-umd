@@ -243,12 +243,15 @@ suite('basic', () ->
       }
     ]
 
-    for template in ['amdWeb', 'amdWebGlobal', 'commonjsAdapter', 'commonjsStrict', 'commonjsStrictGlobal']
+    for template in ['amdWeb', 'amdWebGlobal', 'commonjsAdapter', 'commonjsStrict', 'commonjsStrictGlobal', 'jqueryPlugin']
       do (template) ->
         suite(template, () ->
           for optionsSet in optionSets
             do (optionsSet) ->
               options = extend({}, optionsSet, { templateName: template })
+              if template == 'jqueryPlugin'
+                options.require = extend({ '$': 'jquery' }, options.require)
+
               validate(optionsSet.description + '.js', options)
         )
   )

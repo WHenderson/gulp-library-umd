@@ -3,9 +3,11 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['jquery'], factory);
+        {{ mode = 'amd'; }}
+        define([{{= it.mode[mode].libStrings }}], {{#def.defineFactoryMapped}});
     } else if (typeof module === 'object' && module.exports) {
         // Node/CommonJS
+        {{ mode = 'cjs'; }}
         module.exports = function( root, jQuery ) {
             if ( jQuery === undefined ) {
                 // require('jQuery') returns a factory that requires window to
@@ -13,19 +15,20 @@
                 // that require this pattern but the window provided is a noop
                 // if it's defined (how jquery works)
                 if ( typeof window !== 'undefined' ) {
-                    jQuery = require('jquery');
+                    jQuery = require({{= it.mode[mode].libStrings[0]}});
                 }
                 else {
-                    jQuery = require('jquery')(root);
+                    jQuery = require({{= it.mode[mode].libStrings[0]}})(root);
                 }
             }
-            factory(jQuery);
+            factory(jQuery{{~ it.factory.args : arg : index}}{{? it.mode[mode].require[arg]}}{{? index != 0}}, require({{= JSON.stringify(it.mode[mode].require[arg]) }}){{?}}{{??}}, void 0{{?}}{{~}});
             return jQuery;
         };
     } else {
         // Browser globals
-        factory(jQuery);
+        {{ mode = 'web'; }}
+        factory({{~ it.factory.args : name : index}}{{? index != 0 }}, {{?}}{{? it.mode[mode].require[name]}}{{= it.mode[mode].require[name] }}{{??}}void 0{{?}}{{~}});
     }
-}(function ($) {
-    $.fn.jqueryPlugin = function () { return true; };
+}(function ({{= it.factory.args }}) {
+  {{= it.contents }}
 }));
