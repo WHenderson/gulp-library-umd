@@ -11,10 +11,12 @@
 (function(define) {
 
     define(function (require, exports, module) {
-        var b = require('b');
+        {{ mode = 'node'; }}
+        {{#def.requiresVars}}
 
-        return function () {};
-    });
+        {{= it.contents }}
+        return {{#def.exports}};
+     });
 
 }( // Help Node out by setting up define.
     typeof module === 'object' && module.exports && typeof define !== 'function' ?
