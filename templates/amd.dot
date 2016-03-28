@@ -1,3 +1,0 @@
-{{ it.apply = { args: it.mode.amd.args, factoryArgs: it.mode.amd.factoryArgs }; }}
-define({{= JSON.stringify(it.mode.amd.libs) }}, {{#def.factoryMapped}});
-
