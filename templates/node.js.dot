@@ -1,0 +1,5 @@
+{{ mode = 'node'; }}
+(function ({{= it.factory.args }}){
+  {{= it.contents }}
+  module.exports = {{#def.exports}};
+})({{#def.requiresMapped}});
