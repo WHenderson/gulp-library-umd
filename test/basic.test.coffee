@@ -256,7 +256,7 @@ suite('basic', () ->
         )
   )
 
-  suite.only('sourceMaps', () ->
+  suite('sourceMaps', () ->
     test('coffee', (cb) ->
       gulp
       .src(path.join(__dirname, 'fixtures/fixture-content.coffee'))
