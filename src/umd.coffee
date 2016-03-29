@@ -59,7 +59,10 @@ namespace = (filePath) ->
   )
   .replace(/\W/g, '')
 
-render = (it, contents) ->
+offsetSourceMap = (file, row, col) ->
+  return
+
+render = (file, it, contents) ->
   MAGIC = '(void "46e50563-66cc-4cd3-8dcf-46c527554f54")'
   contents = contents.toString()
 
@@ -70,16 +73,76 @@ render = (it, contents) ->
   # render template with alternate content
   output = it.options.template(it).replace(/\r\n|\n/g, '\n')
 
-  # replace template with indented content
-  output = output.replace(new RegExp('(?:^([ \t]*))?' + MAGIC.replace(/\(/g, '\\(').replace(/\)/g, '\\)'), 'gm'), (match, indent = '') ->
-    if it.options.indent
-      return indent + contents.replace(/\r\n|\n/g, '\n' + indent)
-    else
-      return contents
-  )
+  if file.sourceMap?
+    sourceMap = require('source-map')
+    applySourceMap = require('vinyl-sourcemaps-apply')
+    generator = new sourceMap.SourceMapGenerator(file.sourceMap)
+    consumer = new sourceMap.SourceMapConsumer(file.sourceMap)
+    contentLineCount = contents.split('\n').length - 1
 
-  # return a buffer
-  return new Buffer(output)
+    if file.sourceMap.mappings.length == 0
+      iline = 0
+      while iline != contentLineCount + 1
+        generator.addMapping({
+          generated: {
+            line: iline + 1
+            column: 0
+          }
+          original: {
+            line: iline + 1
+            column: 0
+          }
+          source: file.sourceMap.sources[0]
+          name: null
+        })
+        ++iline
+
+      applySourceMap(file, generator.toString())
+      generator = new sourceMap.SourceMapGenerator(file.sourceMap)
+      consumer = new sourceMap.SourceMapConsumer(file.sourceMap)
+
+  offsetLine = 0
+  output = output.split(/\r\n|\n/).map((line, iline) ->
+    # replace one line at a time
+    line.replace(new RegExp('^([ \t]*)' + MAGIC.replace(/\(/g, '\\(').replace(/\)/g, '\\)\s*$'), 'gm'), (match, indent) ->
+      indent ?= ''
+
+      if it.options.indent and indent.length != 0
+        rendered = indent + contents.replace(/\r\n|\n/g, '\n' + indent)
+      else
+        indent = ''
+        rendered = contents
+
+      icolumn = indent.length
+
+      if file.sourceMap?
+        consumer.eachMapping((mapping) ->
+          generator.addMapping({
+            generated: {
+              line: mapping.generatedLine + iline + offsetLine
+              column: mapping.generatedColumn + indent.length
+            }
+            original: {
+              line: mapping.originalLine
+              column: mapping.originalColumn
+            }
+            source: mapping.source
+            name: mapping.name
+          })
+        )
+
+        offsetLine += contentLineCount
+
+      return rendered
+    )
+  ).join('\n')
+
+  file.contents = new Buffer(output)
+
+  if file.sourceMap?
+    applySourceMap(file, generator.toString())
+
+  return
 
 rename = (file, options) ->
   if options.rename and (options.templateName? or options.templatePath?)
@@ -150,14 +213,14 @@ wrap = (file, options, cb) ->
       if err?
         return cb(err)
 
-      file.contents = render(it, contents)
+      render(file, it, contents)
       rename(file, options)
       cb(null, file)
       return
     )
     return
   else
-    file.contents = render(it, file.contents)
+    render(file, it, file.contents)
     rename(file, options)
     cb(null, file)
     return

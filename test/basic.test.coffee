@@ -7,6 +7,8 @@ assert = require('chai').assert
 dot = require('dot')
 del = require('del')
 extend = require('extend')
+sourceMaps = require('gulp-sourcemaps')
+coffee = require('gulp-coffee')
 
 suite('basic', () ->
   umd = null
@@ -208,8 +210,6 @@ suite('basic', () ->
     )
   )
 
-
-
   suite('templates', () ->
     templates = [
       'amdWeb'
@@ -254,5 +254,68 @@ suite('basic', () ->
 
               validate(optionsSet.description + '.js', options)
         )
+  )
+
+  suite.only('sourceMaps', () ->
+    test('coffee', (cb) ->
+      gulp
+      .src(path.join(__dirname, 'fixtures/fixture-content.coffee'))
+      .pipe(sourceMaps.init())
+      .pipe(coffee())
+      .pipe(rename((p) =>
+        p.basename = 'coffee'
+        return
+      ))
+      .pipe(umd({
+        templateName: 'amd'
+      }))
+      .pipe(sourceMaps.write())
+      .pipe(gulp.dest(path.join(__dirname, 'found/sourceMaps')))
+      .pipe(es.map((file, cb) ->
+        fs.readFile(path.join(__dirname, 'expected', 'found/sourceMaps', file.basename), 'utf8', (err, data) ->
+          if err?
+            return cb(err)
+
+          assert.equal(
+            file.contents.toString().replace(/\r\n|\r/g, '\n')
+            data.toString().replace(/\r\n|\r/g, '\n')
+            'Did not produce the expected output'
+          )
+
+          cb(null, file)
+        )
+      ))
+      .on('end', cb)
+    )
+
+    test('simple', (cb) ->
+      gulp
+      .src(path.join(__dirname, 'fixtures/fixture-content.js'))
+      .pipe(sourceMaps.init())
+      .pipe(rename((p) =>
+        p.basename = 'simple'
+        return
+      ))
+      .pipe(umd({
+        templateName: 'amd'
+      }))
+      .pipe(sourceMaps.write())
+      .pipe(gulp.dest(path.join(__dirname, 'found/sourceMaps')))
+      .pipe(es.map((file, cb) ->
+        fs.readFile(path.join(__dirname, 'expected', 'found/sourceMaps', file.basename), 'utf8', (err, data) ->
+          if err?
+            return cb(err)
+
+          assert.equal(
+            file.contents.toString().replace(/\r\n|\r/g, '\n')
+            data.toString().replace(/\r\n|\r/g, '\n')
+            'Did not produce the expected output'
+          )
+
+          cb(null, file)
+        )
+      ))
+      .on('end', cb)
+    )
   )
 )
