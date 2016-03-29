@@ -1,0 +1,31 @@
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    {{ mode = 'amd'; }}
+    define([{{= it.mode[mode].libStrings }}], {{#def.defineFactoryMapped}});
+  } else if (typeof module === 'object' && module.exports) {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    {{ mode = 'node'; }}
+    module.exports = factory({{#def.requiresMapped}});
+  } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
+    // CommonJs
+    {{ mode = 'cjs'; }}
+    (function (results) {
+      {{? typeof it.options.exports === 'string' }}
+      for (var key in results) {
+        if ({}.hasOwnProperty.call(results, key))
+          exports[key] = results[key];
+      }
+      {{??}}
+      {{~ it.options.exports : name }}
+      exports.{{= name }} = results.{{= name }};{{~}}
+      {{?}}
+    })(factory({{#def.requiresMapped}}));
+  } else {
+   // Browser globals
+   {{ mode = 'web'; }}
+   root.{{= it.options.namespace }} = factory({{#def.globalsMapped}});
+  }
+}(this, {{#def.defineFactory}}));
