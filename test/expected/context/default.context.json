@@ -1,0 +1,59 @@
+{
+  "it": {
+    "options": {
+      "templateCache": true,
+      "modes": [
+        "cjs",
+        "node",
+        "amd",
+        "web"
+      ],
+      "indent": true,
+      "rename": true,
+      "require": {},
+      "exports": "exports",
+      "templateName": "context.dot",
+      "namespace": "default",
+      "templatePath": "C:\\Code\\GitHub\\gulp-library-umd\\templates\\context.dot"
+    },
+    "mode": {
+      "cjs": {
+        "require": {},
+        "requireArray": [],
+        "args": [],
+        "libs": [],
+        "libStrings": [],
+        "factoryArgs": []
+      },
+      "node": {
+        "require": {},
+        "requireArray": [],
+        "args": [],
+        "libs": [],
+        "libStrings": [],
+        "factoryArgs": []
+      },
+      "amd": {
+        "require": {},
+        "requireArray": [],
+        "args": [],
+        "libs": [],
+        "libStrings": [],
+        "factoryArgs": []
+      },
+      "web": {
+        "require": {},
+        "requireArray": [],
+        "args": [],
+        "libs": [],
+        "libStrings": [],
+        "factoryArgs": []
+      }
+    },
+    "factory": {
+      "args": []
+    },
+    "trueContents": "{ \"EXAMPLE\": \"CONTENT\" }",
+    "contents": "(void \"46e50563-66cc-4cd3-8dcf-46c527554f54\")"
+  }
+}

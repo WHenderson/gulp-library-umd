@@ -1,0 +1,252 @@
+{
+  "it": {
+    "options": {
+      "templateCache": true,
+      "modes": [
+        "cjs",
+        "node",
+        "amd",
+        "web"
+      ],
+      "indent": true,
+      "rename": true,
+      "require": {
+        "libA": "lib-a",
+        "libB": {
+          "name": "lib-b"
+        },
+        "libC": {
+          "name": "lib-c",
+          "amd": "lib-c-amd"
+        },
+        "libD": {
+          "name": "lib-d",
+          "amd": null
+        }
+      },
+      "exports": "exports",
+      "templateName": "context.dot",
+      "namespace": "requires",
+      "templatePath": "C:\\Code\\GitHub\\gulp-library-umd\\templates\\context.dot"
+    },
+    "mode": {
+      "cjs": {
+        "require": {
+          "libA": "lib-a",
+          "libB": "lib-b",
+          "libC": "lib-c",
+          "libD": "lib-d"
+        },
+        "requireArray": [
+          {
+            "arg": "libA",
+            "lib": "lib-a",
+            "libString": "\"lib-a\""
+          },
+          {
+            "arg": "libB",
+            "lib": "lib-b",
+            "libString": "\"lib-b\""
+          },
+          {
+            "arg": "libC",
+            "lib": "lib-c",
+            "libString": "\"lib-c\""
+          },
+          {
+            "arg": "libD",
+            "lib": "lib-d",
+            "libString": "\"lib-d\""
+          }
+        ],
+        "args": [
+          "libA",
+          "libB",
+          "libC",
+          "libD"
+        ],
+        "libs": [
+          "lib-a",
+          "lib-b",
+          "lib-c",
+          "lib-d"
+        ],
+        "libStrings": [
+          "\"lib-a\"",
+          "\"lib-b\"",
+          "\"lib-c\"",
+          "\"lib-d\""
+        ],
+        "factoryArgs": [
+          "libA",
+          "libB",
+          "libC",
+          "libD"
+        ]
+      },
+      "node": {
+        "require": {
+          "libA": "lib-a",
+          "libB": "lib-b",
+          "libC": "lib-c",
+          "libD": "lib-d"
+        },
+        "requireArray": [
+          {
+            "arg": "libA",
+            "lib": "lib-a",
+            "libString": "\"lib-a\""
+          },
+          {
+            "arg": "libB",
+            "lib": "lib-b",
+            "libString": "\"lib-b\""
+          },
+          {
+            "arg": "libC",
+            "lib": "lib-c",
+            "libString": "\"lib-c\""
+          },
+          {
+            "arg": "libD",
+            "lib": "lib-d",
+            "libString": "\"lib-d\""
+          }
+        ],
+        "args": [
+          "libA",
+          "libB",
+          "libC",
+          "libD"
+        ],
+        "libs": [
+          "lib-a",
+          "lib-b",
+          "lib-c",
+          "lib-d"
+        ],
+        "libStrings": [
+          "\"lib-a\"",
+          "\"lib-b\"",
+          "\"lib-c\"",
+          "\"lib-d\""
+        ],
+        "factoryArgs": [
+          "libA",
+          "libB",
+          "libC",
+          "libD"
+        ]
+      },
+      "amd": {
+        "require": {
+          "libA": "lib-a",
+          "libB": "lib-b",
+          "libC": "lib-c-amd"
+        },
+        "requireArray": [
+          {
+            "arg": "libA",
+            "lib": "lib-a",
+            "libString": "\"lib-a\""
+          },
+          {
+            "arg": "libB",
+            "lib": "lib-b",
+            "libString": "\"lib-b\""
+          },
+          {
+            "arg": "libC",
+            "lib": "lib-c-amd",
+            "libString": "\"lib-c-amd\""
+          }
+        ],
+        "args": [
+          "libA",
+          "libB",
+          "libC"
+        ],
+        "libs": [
+          "lib-a",
+          "lib-b",
+          "lib-c-amd"
+        ],
+        "libStrings": [
+          "\"lib-a\"",
+          "\"lib-b\"",
+          "\"lib-c-amd\""
+        ],
+        "factoryArgs": [
+          "libA",
+          "libB",
+          "libC",
+          "void 0"
+        ]
+      },
+      "web": {
+        "require": {
+          "libA": "lib-a",
+          "libB": "lib-b",
+          "libC": "lib-c",
+          "libD": "lib-d"
+        },
+        "requireArray": [
+          {
+            "arg": "libA",
+            "lib": "lib-a",
+            "libString": "\"lib-a\""
+          },
+          {
+            "arg": "libB",
+            "lib": "lib-b",
+            "libString": "\"lib-b\""
+          },
+          {
+            "arg": "libC",
+            "lib": "lib-c",
+            "libString": "\"lib-c\""
+          },
+          {
+            "arg": "libD",
+            "lib": "lib-d",
+            "libString": "\"lib-d\""
+          }
+        ],
+        "args": [
+          "libA",
+          "libB",
+          "libC",
+          "libD"
+        ],
+        "libs": [
+          "lib-a",
+          "lib-b",
+          "lib-c",
+          "lib-d"
+        ],
+        "libStrings": [
+          "\"lib-a\"",
+          "\"lib-b\"",
+          "\"lib-c\"",
+          "\"lib-d\""
+        ],
+        "factoryArgs": [
+          "libA",
+          "libB",
+          "libC",
+          "libD"
+        ]
+      }
+    },
+    "factory": {
+      "args": [
+        "libA",
+        "libB",
+        "libC",
+        "libD"
+      ]
+    },
+    "trueContents": "{ \"EXAMPLE\": \"CONTENT\" }",
+    "contents": "(void \"46e50563-66cc-4cd3-8dcf-46c527554f54\")"
+  }
+}

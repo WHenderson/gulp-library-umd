@@ -272,7 +272,7 @@ suite('basic', () ->
       .pipe(sourceMaps.write())
       .pipe(gulp.dest(path.join(__dirname, 'found/sourceMaps')))
       .pipe(es.map((file, cb) ->
-        fs.readFile(path.join(__dirname, 'expected', 'found/sourceMaps', file.basename), 'utf8', (err, data) ->
+        fs.readFile(path.join(__dirname, 'expected/sourceMaps', file.basename), 'utf8', (err, data) ->
           if err?
             return cb(err)
 
@@ -302,7 +302,7 @@ suite('basic', () ->
       .pipe(sourceMaps.write())
       .pipe(gulp.dest(path.join(__dirname, 'found/sourceMaps')))
       .pipe(es.map((file, cb) ->
-        fs.readFile(path.join(__dirname, 'expected', 'found/sourceMaps', file.basename), 'utf8', (err, data) ->
+        fs.readFile(path.join(__dirname, 'expected/sourceMaps', file.basename), 'utf8', (err, data) ->
           if err?
             return cb(err)
 
