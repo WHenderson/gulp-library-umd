@@ -51,7 +51,6 @@ compile.defines = do ->
       ext = path.extname(name)
       if ext != ''
         name = path.basename(name, ext) + ext[1].toUpperCase() + ext.slice(2)
-      console.log(name)
       defines[name] = fs.readFileSync(path.join(__dirname, '../templates/def', source))
   return defines
 
