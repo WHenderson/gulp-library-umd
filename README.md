@@ -25,8 +25,8 @@ Wraps files with a specified UMD template.
 | [gulp-umd](https://github.com/eduardolundgren/gulp-umd) | common.js               |     |     |  X  |      |   |
 | [gulp-umd](https://github.com/eduardolundgren/gulp-umd) | node.js                 |     |     |     |  X   |   |
 | [gulp-umd](https://github.com/eduardolundgren/gulp-umd) | web.js                  |     |  X  |     |      |   |
-| [gulp-library-umd](./) |                                | umd.js                  |  X  |  X  |  X  |  X   | Simple support for each of the major export platforms |
-| [gulp-library-umd](./) |                                | umdGlobal.js            |  X  |  X  |  X  |  X   | Simple support for each of the major export platforms. Creates a web global when AMD is used |
+| [gulp-library-umd](./)                                  | umd.js                  |  X  |  X  |  X  |  X   | Simple support for each of the major export platforms |
+| [gulp-library-umd](./)                                  | umdGlobal.js            |  X  |  X  |  X  |  X   | Simple support for each of the major export platforms. Creates a web global when AMD is used |
 
 ## Usage
 
