@@ -1,2 +1,2 @@
 {{ mode = 'amd'; }}
-define([{{= it.mode[mode].libStrings }}], {{#def.defineMappedFactory}});
+define([{{= it.mode[mode].libStrings }}], {{#def.defineMappedFactoryJs}});

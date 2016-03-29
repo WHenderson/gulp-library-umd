@@ -105,53 +105,53 @@ suite('basic', () ->
   suite('snippets', () ->
     suite('exports', () ->
       validate('default.js', {
-        templatePath: path.join(__dirname, '../templates/exports.def')
+        templatePath: path.join(__dirname, '../templates/def/exports.js.def')
       })
 
       validate('string.js', {
-        templatePath: path.join(__dirname, '../templates/exports.def')
+        templatePath: path.join(__dirname, '../templates/def/exports.js.def')
         exports: 'myExports'
       })
 
       validate('array.js', {
-        templatePath: path.join(__dirname, '../templates/exports.def')
+        templatePath: path.join(__dirname, '../templates/def/exports.js.def')
         exports: ['exportA', 'exportB', 'exportC']
       })
     )
 
     suite('exportsCjs', () ->
       validate('default.js', {
-        templatePath: path.join(__dirname, '../templates/exportsCjs.def')
+        templatePath: path.join(__dirname, '../templates/def/exportsCjs.js.def')
       })
 
       validate('string.js', {
-        templatePath: path.join(__dirname, '../templates/exportsCjs.def')
+        templatePath: path.join(__dirname, '../templates/def/exportsCjs.js.def')
         exports: 'myExports'
       })
 
       validate('array.js', {
-        templatePath: path.join(__dirname, '../templates/exportsCjs.def')
+        templatePath: path.join(__dirname, '../templates/def/exportsCjs.js.def')
         exports: ['exportA', 'exportB', 'exportC']
       })
     )
 
     suite('defineFactory', () ->
       validate('default.js', {
-        templatePath: path.join(__dirname, '../templates/defineFactory.def')
+        templatePath: path.join(__dirname, '../templates/def/defineFactory.js.def')
       })
 
       validate('string.js', {
-        templatePath: path.join(__dirname, '../templates/defineFactory.def')
+        templatePath: path.join(__dirname, '../templates/def/defineFactory.js.def')
         exports: 'myExports'
       })
 
       validate('array.js', {
-        templatePath: path.join(__dirname, '../templates/defineFactory.def')
+        templatePath: path.join(__dirname, '../templates/def/defineFactory.js.def')
         exports: ['exportA', 'exportB', 'exportC']
       })
 
       validate('requires.js', {
-        templatePath: path.join(__dirname, '../templates/defineFactory.def')
+        templatePath: path.join(__dirname, '../templates/def/defineFactory.js.def')
         require: {
           libA: 'lib-a'
           libB: { name: 'lib-b' }

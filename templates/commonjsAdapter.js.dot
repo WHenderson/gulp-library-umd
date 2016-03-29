@@ -19,15 +19,15 @@ define(function (require, exports, module) {
     {{? JSON.stringify(it.mode.amd) != JSON.stringify(it.mode.cjs) }}
     if (define.amd) {
       {{ mode = 'amd'; }}
-      {{#def.requiresVars}}
+      {{#def.requiresVarsJs}}
     }
     else {
       {{ mode = 'cjs'; }}
-      {{#def.requiresVars}}
+      {{#def.requiresVarsJs}}
     }
     {{??}}
     {{ mode = 'cjs'; }}
-    {{#def.requiresVars}}
+    {{#def.requiresVarsJs}}
     {{?}}
 
     (function (results) {
@@ -40,5 +40,5 @@ define(function (require, exports, module) {
       {{~ it.options.exports : name }}
       exports.{{= name }} = results.{{= name }};{{~}}
       {{?}}
-    })(({{#def.defineFactory}})());
+    })(({{#def.defineFactoryJs}})());
 });

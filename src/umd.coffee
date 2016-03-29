@@ -45,9 +45,14 @@ compile.settings = extend({}, dot.templateSettings, { strip: false })
 
 compile.defines = do ->
   defines = {}
-  for source in fs.readdirSync(path.join(__dirname, '../templates')).sort()
+  for source in fs.readdirSync(path.join(__dirname, '../templates/def')).sort()
     if path.extname(source) == '.def'
-      defines[path.basename(source, path.extname(source))] = fs.readFileSync(path.join(__dirname, '../templates', source))
+      name = path.basename(source, path.extname(source))
+      ext = path.extname(name)
+      if ext != ''
+        name = path.basename(name, ext) + ext[1].toUpperCase() + ext.slice(2)
+      console.log(name)
+      defines[name] = fs.readFileSync(path.join(__dirname, '../templates/def', source))
   return defines
 
 namespace = (filePath) ->

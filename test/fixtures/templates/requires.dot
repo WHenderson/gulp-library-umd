@@ -1,7 +1,7 @@
 {{~ it.options.modes : mode }}// {{= mode}}
 // requires
-{{#def.requires}}
+{{#def.requiresJs}}
 // requiresVars
-{{#def.requiresVars}}
+{{#def.requiresVarsJs}}
 
 {{~}}

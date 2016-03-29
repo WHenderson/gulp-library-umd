@@ -1,10 +1,10 @@
 // without global
 {{~ it.options.modes : mode }}// {{= mode}}
-{{#def.defineFactoryMapped}}
+{{#def.defineFactoryMappedJs}}
 
 {{~}}
 // with global
 {{~ it.options.modes : mode }}// {{= mode}} {{ it.mode[mode].global = true; }}
-{{#def.defineFactoryMapped}}
+{{#def.defineFactoryMappedJs}}
 
 {{~}}

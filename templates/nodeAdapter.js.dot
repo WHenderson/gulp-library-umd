@@ -12,10 +12,10 @@
 
     define(function (require, exports, module) {
         {{ mode = 'node'; }}
-        {{#def.requiresVars}}
+        {{#def.requiresVarsJs}}
 
         {{= it.contents }}
-        return {{#def.exports}};
+        return {{#def.exportsJs}};
      });
 
 }( // Help Node out by setting up define.

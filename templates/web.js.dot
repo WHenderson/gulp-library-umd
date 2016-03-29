@@ -1,4 +1,4 @@
 {{ mode = 'web'; }};(function ({{= it.factory.args }}) {
   {{= it.contents }}
-  root.{{= it.options.namespace }} = {{#def.exports}};
-}).call(this{{?it.mode[mode].args.length != 0}},{{?}}{{#def.globalsMapped}});
+  root.{{= it.options.namespace }} = {{#def.exportsJs}};
+}).call(this{{?it.mode[mode].args.length != 0}},{{?}}{{#def.globalsMappedJs}});

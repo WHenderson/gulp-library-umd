@@ -1,1 +1,1 @@
-{{ mode = 'cjs'; }};({{#def.defineFactoryExports}})(this{{?it.mode[mode].args.length != 0}},{{?}}{{#def.requiresMapped}});
+{{ mode = 'cjs'; }};({{#def.defineFactoryExportsJs}})(this{{?it.mode[mode].args.length != 0}},{{?}}{{#def.requiresMappedJs}});

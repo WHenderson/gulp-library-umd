@@ -2,5 +2,5 @@
 Function containing the module code and returns the exported value.
 {{?}}function ({{= it.factory.args }}) {
   {{= it.contents }}
-  return {{#def.exports}};
+  return {{#def.exportsJs}};
 }

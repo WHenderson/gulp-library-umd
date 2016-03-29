@@ -2,13 +2,13 @@
 ;(function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     {{ mode = 'amd'; }}
-    define(["exports"{{?it.mode[mode].args.length != 0}},{{?}}{{= it.mode[mode].libStrings }}], {{#def.defineFactoryMappedExports}});
+    define(["exports"{{?it.mode[mode].args.length != 0}},{{?}}{{= it.mode[mode].libStrings }}], {{#def.defineFactoryMappedExportsJs}});
   } else if (typeof exports === 'object') {
     {{ mode = 'cjs'; }}
-    factory(exports{{?it.mode[mode].args.length != 0}},{{?}}{{#def.requiresMapped}});
+    factory(exports{{?it.mode[mode].args.length != 0}},{{?}}{{#def.requiresMappedJs}});
   } else {
     // Browser globals
     {{ mode = 'web'; }}
-    factory((root.{{= it.options.namespace }} = {}){{?it.mode[mode].args.length != 0}},{{?}}{{#def.globalsMapped}});
+    factory((root.{{= it.options.namespace }} = {}){{?it.mode[mode].args.length != 0}},{{?}}{{#def.globalsMappedJs}});
   }
-}(this, {{#def.defineFactoryExports}}));
+}(this, {{#def.defineFactoryExportsJs}}));

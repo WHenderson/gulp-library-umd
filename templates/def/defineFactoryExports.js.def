@@ -12,6 +12,6 @@ Function containing the module code and returns the exported value.
     {{~ it.options.exports : name }}
     exports.{{= name }} = results.{{= name }};{{~}}
     {{?}}
-  })(({{#def.defineFactory}})({{= it.factory.args }}));
+  })(({{#def.defineFactoryJs}})({{= it.factory.args }}));
 
 }

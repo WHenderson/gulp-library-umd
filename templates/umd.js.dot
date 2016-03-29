@@ -2,13 +2,13 @@
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     {{ mode = 'amd'; }}
-    define([{{= it.mode[mode].libStrings }}], {{#def.defineFactoryMapped}});
+    define([{{= it.mode[mode].libStrings }}], {{#def.defineFactoryMappedJs}});
   } else if (typeof module === 'object' && module.exports) {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
     {{ mode = 'node'; }}
-    module.exports = factory({{#def.requiresMapped}});
+    module.exports = factory({{#def.requiresMappedJs}});
   } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
     // CommonJs
     {{ mode = 'cjs'; }}
@@ -22,10 +22,10 @@
       {{~ it.options.exports : name }}
       exports.{{= name }} = results.{{= name }};{{~}}
       {{?}}
-    })(factory({{#def.requiresMapped}}));
+    })(factory({{#def.requiresMappedJs}}));
   } else {
    // Browser globals
    {{ mode = 'web'; }}
-   root.{{= it.options.namespace }} = factory({{#def.globalsMapped}});
+   root.{{= it.options.namespace }} = factory({{#def.globalsMappedJs}});
   }
-}(this, {{#def.defineFactory}}));
+}(this, {{#def.defineFactoryJs}}));
