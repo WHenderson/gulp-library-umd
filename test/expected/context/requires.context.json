@@ -27,7 +27,7 @@
       "exports": "exports",
       "templateName": "context.dot",
       "namespace": "requires",
-      "templatePath": "C:\\Code\\GitHub\\gulp-library-umd\\templates\\context.dot"
+      "templatePath": "(...)/templates/context.dot"
     },
     "mode": {
       "cjs": {

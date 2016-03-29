@@ -1,3 +1,7 @@
 {{? false}}
 Render context as JSON
-{{?}}{{= JSON.stringify({ it: it }, null, 2) }}
+{{?}}{{
+if (it.options.templatePath) {
+  it.options.templatePath = '(...)/templates/context.dot'
+}
+}}{{= JSON.stringify({ it: it }, null, 2) }}
