@@ -2,7 +2,7 @@
   "name": "gulp-library-umd",
   "version": "1.0.0",
   "description": "Gulp plugin for transforming node modules into various flavors of UMD (Universal Module Definition). Supports sourcemaps!",
-  "main": "index.js",
+  "main": "dist/umd.js",
   "scripts": {
     "test": "gulp test"
   },
