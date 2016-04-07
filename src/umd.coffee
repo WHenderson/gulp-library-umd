@@ -63,9 +63,6 @@ namespace = (filePath) ->
   )
   .replace(/\W/g, '')
 
-offsetSourceMap = (file, row, col) ->
-  return
-
 render = (file, it, contents) ->
   MAGIC = '(void "46e50563-66cc-4cd3-8dcf-46c527554f54")'
   contents = contents.toString()
@@ -163,9 +160,6 @@ rename = (file, options) ->
     if name? and name != ''
       file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + name.replace(/\\\//g, '-') + ext
   return
-
-jsonify = (data) ->
-  JSON.stringify(data)
 
 wrap = (file, options, cb) ->
   it = {
