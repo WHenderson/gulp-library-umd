@@ -150,6 +150,9 @@ rename = (file, options) ->
     ext = path.extname(options.templatePath)
     name = path.basename(options.templatePath, ext)
 
+    if name.charAt(0) == '.'
+      name = name.slice(1)
+
     if ext == '.dot' or ext == '.def'
       ext = path.extname(name)
       name = path.basename(name, ext)
@@ -157,8 +160,8 @@ rename = (file, options) ->
     if not ext? or ext == ''
       ext = path.extname(file.basename)
 
-    if name? and name != ''
-      file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + name.replace(/\\\//g, '-') + ext
+    file.basename = path.basename(file.basename, path.extname(file.basename)) + '.' + name.replace(/\\\//g, '-') + ext
+
   return
 
 wrap = (file, options, cb) ->
@@ -208,6 +211,7 @@ wrap = (file, options, cb) ->
 
   if gutil.isStream(file.contents)
     file.contents.pipe(es.wait((err, contents) ->
+      ### !pragma coverage-skip-next ###
       if err?
         return cb(err)
 
