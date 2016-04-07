@@ -350,6 +350,40 @@ suite('basic', () ->
       ))
       .on('end', cb)
     )
+
+    test('template-string', (cb) ->
+      gulp
+      .src(path.join(__dirname, 'fixtures/fixture-content.js'))
+      .pipe(rename((p) =>
+        p.basename = 'template-string'
+        return
+      ))
+      .pipe(umd({
+        template: '''
+          // from template string
+          // start js
+          {{= it.contents }}
+          // end js
+        '''
+      }))
+      .pipe(sourceMaps.write())
+      .pipe(gulp.dest(path.join(__dirname, 'found/options')))
+      .pipe(es.map((file, cb) ->
+        fs.readFile(path.join(__dirname, 'expected/options', file.basename), 'utf8', (err, data) ->
+          if err?
+            return cb(err)
+
+          assert.equal(
+            file.contents.toString().replace(/\r\n|\r/g, '\n')
+            data.toString().replace(/\r\n|\r/g, '\n')
+            'Did not produce the expected output'
+          )
+
+          cb(null, file)
+        )
+      ))
+      .on('end', cb)
+    )
   )
 
   suite('integration', () ->
