@@ -269,12 +269,9 @@ pipe = (overrides) ->
       if typeof options.template == 'string'
         options.template = compile(options.template)
 
-      if not options.template?
-        throw new Error('No template specified')
-
       wrap(file, options, cb)
       return
-      
+
     throw new Error('No template specified')
   )
 

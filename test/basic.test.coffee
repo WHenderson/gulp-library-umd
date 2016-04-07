@@ -505,5 +505,27 @@ suite('basic', () ->
           )
       )
     )
+
+    test('no template', () ->
+      new Promise((resolve, reject) ->
+        gulp
+        .src(path.join(__dirname, 'fixtures/fixture-content.js'))
+        .pipe(umd({ }))
+        .on('error', (err) ->
+          reject(err)
+          @emit('end')
+          @end()
+        )
+        .on('end', () -> resolve())
+      )
+      .then(
+        () -> throw new Error('Did not throw')
+        (err) ->
+          assert.throws(
+            () -> throw err
+            'No template specified'
+          )
+      )
+    )
   )
 )
