@@ -13,6 +13,7 @@ gdata = require('gulp-data')
 
 suite('basic', () ->
   umd = null
+  @timeout(10000)
 
   suiteSetup((cb) ->
     umd = require('../src/umd')
@@ -49,7 +50,7 @@ suite('basic', () ->
         ))
         .pipe(umd(options))
         .on('error', (err) ->
-          if expectedError?l
+          if expectedError?
             assert.throws(
               () -> throw err
               expectedError
@@ -359,7 +360,7 @@ suite('basic', () ->
         path.join(__dirname, 'fixtures/fixture-content.json')
       ])
       .pipe(rename((p) =>
-        p.basename = 'integration'
+        p.basename = 'gulp-data'
         return
       ))
       .pipe(gdata((file) ->
@@ -384,6 +385,91 @@ suite('basic', () ->
         )
       ))
       .on('end', cb)
+    )
+  )
+
+  suite('other', () ->
+    test('cache', (cb) ->
+      gulp
+      .src([
+        path.join(__dirname, 'fixtures/fixture-content.js'),
+        path.join(__dirname, 'fixtures/fixture-content.json')
+      ])
+      .pipe(rename((p) =>
+        p.basename = 'cache-' + p.extname.slice(1)
+        return
+      ))
+      .pipe(umd({
+        templatePath: path.join(__dirname, 'fixtures/templates/simple-wrap-js.dot')
+        templateCache: false
+      }))
+      .pipe(gulp.dest(path.join(__dirname, 'found/other')))
+      .pipe(es.map((file, cb) ->
+        fs.readFile(path.join(__dirname, 'expected/other', file.basename), 'utf8', (err, data) ->
+          if err?
+            return cb(err)
+
+          assert.equal(
+            file.contents.toString().replace(/\r\n|\r/g, '\n')
+            data.toString().replace(/\r\n|\r/g, '\n')
+            'Did not produce the expected output'
+          )
+
+          cb(null, file)
+        )
+      ))
+      .on('end', cb)
+    )
+
+    test('no-cache', (cb) ->
+      gulp
+      .src([
+        path.join(__dirname, 'fixtures/fixture-content.js'),
+        path.join(__dirname, 'fixtures/fixture-content.json')
+      ])
+      .pipe(rename((p) =>
+        p.basename = 'no-cache-' + p.extname.slice(1)
+        return
+      ))
+      .pipe(umd({ templatePath: path.join(__dirname, 'fixtures/templates/simple-wrap-js.dot') }))
+      .pipe(gulp.dest(path.join(__dirname, 'found/other')))
+      .pipe(es.map((file, cb) ->
+        fs.readFile(path.join(__dirname, 'expected/other', file.basename), 'utf8', (err, data) ->
+          if err?
+            return cb(err)
+
+          assert.equal(
+            file.contents.toString().replace(/\r\n|\r/g, '\n')
+            data.toString().replace(/\r\n|\r/g, '\n')
+            'Did not produce the expected output'
+          )
+
+          cb(null, file)
+        )
+      ))
+      .on('end', cb)
+    )
+
+    test('unknown template', () ->
+      new Promise((resolve, reject) ->
+        gulp
+        .src(path.join(__dirname, 'fixtures/fixture-content.js'))
+        .pipe(umd({ templateName: 'unknown' }))
+        .on('error', (err) ->
+          reject(err)
+          @emit('end')
+          @end()
+        )
+        .on('end', () -> resolve())
+      )
+      .then(
+        () -> throw new Error('Did not throw')
+        (err) ->
+          assert.throws(
+            () -> throw err
+            'ENOENT: no such file or directory'
+          )
+      )
     )
   )
 )

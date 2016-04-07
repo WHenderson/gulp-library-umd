@@ -262,7 +262,9 @@ pipe = (overrides) ->
 
           wrap(file, options, cb)
         )
-    else
+        return
+
+    if options.template?
       # template
       if typeof options.template == 'string'
         options.template = compile(options.template)
@@ -271,6 +273,9 @@ pipe = (overrides) ->
         throw new Error('No template specified')
 
       wrap(file, options, cb)
+      return
+      
+    throw new Error('No template specified')
   )
 
 module.exports = pipe
