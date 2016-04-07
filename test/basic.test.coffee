@@ -422,7 +422,7 @@ suite('basic', () ->
     )
   )
 
-  suite.only('other', () ->
+  suite('other', () ->
     test('cache', (cb) ->
       gulp
       .src([
