@@ -356,16 +356,17 @@ suite('basic', () ->
       .src(path.join(__dirname, 'fixtures/fixture-content.js'))
       .pipe(rename((p) =>
         p.basename = 'unexpected-mode'
+        p.extname = '.json'
         return
       ))
       .pipe(umd({
-        templateName: 'amd'
+        templateName: 'context.dot'
         modes: []
         require: {
           libA: 'lib-a'
           libB: {
             name: 'lib-b-default'
-            amd: 'lib-b-amd'
+            unexpected: 'something'
           }
         }
         indent: false

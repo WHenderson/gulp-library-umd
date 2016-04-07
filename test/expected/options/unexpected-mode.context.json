@@ -1,0 +1,206 @@
+{
+  "it": {
+    "options": {
+      "templateCache": true,
+      "modes": [
+        "cjs",
+        "node",
+        "amd",
+        "web"
+      ],
+      "indent": false,
+      "rename": true,
+      "require": {
+        "libA": "lib-a",
+        "libB": {
+          "name": "lib-b-default",
+          "unexpected": "something"
+        }
+      },
+      "exports": "exports",
+      "templateName": "context.dot",
+      "namespace": "unexpectedMode",
+      "templatePath": "(...)/templates/context.dot"
+    },
+    "mode": {
+      "cjs": {
+        "require": {
+          "libA": "lib-a",
+          "libB": "lib-b-default"
+        },
+        "requireArray": [
+          {
+            "arg": "libA",
+            "lib": "lib-a",
+            "libString": "\"lib-a\""
+          },
+          {
+            "arg": "libB",
+            "lib": "lib-b-default",
+            "libString": "\"lib-b-default\""
+          }
+        ],
+        "args": [
+          "libA",
+          "libB"
+        ],
+        "libs": [
+          "lib-a",
+          "lib-b-default"
+        ],
+        "libStrings": [
+          "\"lib-a\"",
+          "\"lib-b-default\""
+        ],
+        "factoryArgs": [
+          "libA",
+          "libB"
+        ]
+      },
+      "node": {
+        "require": {
+          "libA": "lib-a",
+          "libB": "lib-b-default"
+        },
+        "requireArray": [
+          {
+            "arg": "libA",
+            "lib": "lib-a",
+            "libString": "\"lib-a\""
+          },
+          {
+            "arg": "libB",
+            "lib": "lib-b-default",
+            "libString": "\"lib-b-default\""
+          }
+        ],
+        "args": [
+          "libA",
+          "libB"
+        ],
+        "libs": [
+          "lib-a",
+          "lib-b-default"
+        ],
+        "libStrings": [
+          "\"lib-a\"",
+          "\"lib-b-default\""
+        ],
+        "factoryArgs": [
+          "libA",
+          "libB"
+        ]
+      },
+      "amd": {
+        "require": {
+          "libA": "lib-a",
+          "libB": "lib-b-default"
+        },
+        "requireArray": [
+          {
+            "arg": "libA",
+            "lib": "lib-a",
+            "libString": "\"lib-a\""
+          },
+          {
+            "arg": "libB",
+            "lib": "lib-b-default",
+            "libString": "\"lib-b-default\""
+          }
+        ],
+        "args": [
+          "libA",
+          "libB"
+        ],
+        "libs": [
+          "lib-a",
+          "lib-b-default"
+        ],
+        "libStrings": [
+          "\"lib-a\"",
+          "\"lib-b-default\""
+        ],
+        "factoryArgs": [
+          "libA",
+          "libB"
+        ]
+      },
+      "web": {
+        "require": {
+          "libA": "lib-a",
+          "libB": "lib-b-default"
+        },
+        "requireArray": [
+          {
+            "arg": "libA",
+            "lib": "lib-a",
+            "libString": "\"lib-a\""
+          },
+          {
+            "arg": "libB",
+            "lib": "lib-b-default",
+            "libString": "\"lib-b-default\""
+          }
+        ],
+        "args": [
+          "libA",
+          "libB"
+        ],
+        "libs": [
+          "lib-a",
+          "lib-b-default"
+        ],
+        "libStrings": [
+          "\"lib-a\"",
+          "\"lib-b-default\""
+        ],
+        "factoryArgs": [
+          "libA",
+          "libB"
+        ]
+      },
+      "unexpected": {
+        "require": {
+          "libA": "lib-a",
+          "libB": "something"
+        },
+        "requireArray": [
+          {
+            "arg": "libA",
+            "lib": "lib-a",
+            "libString": "\"lib-a\""
+          },
+          {
+            "arg": "libB",
+            "lib": "something",
+            "libString": "\"something\""
+          }
+        ],
+        "args": [
+          "libA",
+          "libB"
+        ],
+        "libs": [
+          "lib-a",
+          "something"
+        ],
+        "libStrings": [
+          "\"lib-a\"",
+          "\"something\""
+        ],
+        "factoryArgs": [
+          "libA",
+          "libB"
+        ]
+      }
+    },
+    "factory": {
+      "args": [
+        "libA",
+        "libB"
+      ]
+    },
+    "trueContents": "var exports = function () {\r\n  return 'js module';\r\n};",
+    "contents": "(void \"46e50563-66cc-4cd3-8dcf-46c527554f54\")"
+  }
+}
