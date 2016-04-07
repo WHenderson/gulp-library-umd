@@ -11,7 +11,7 @@
     "version": "npm-git-library-version version",
     "postversion": "npm-git-library-version postversion",
     "build": "gulp chained-1-build",
-    "test": "gulp test"
+    "test": "gulp"
   },
   "repository": {
     "type": "git",
