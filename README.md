@@ -6,7 +6,7 @@ Wraps files with a specified UMD template.
 *Supports [gulp-data](https://www.npmjs.com/package/gulp-data)!*
 
 ## Templates
-`gulp-library-umd` supports many templates out of the box, including all those provided by | [UMDjs](https://github.com/umdjs/umd) and [gulp-umd](https://github.com/eduardolundgren/gulp-umd)
+`gulp-library-umd` supports many templates out of the box, including all those provided by [UMDjs](https://github.com/umdjs/umd) and [gulp-umd](https://github.com/eduardolundgren/gulp-umd)
 
  
 | origin                                                  | template                | amd | web | cjs | node | notes |
