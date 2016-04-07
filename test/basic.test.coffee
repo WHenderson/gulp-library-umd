@@ -422,7 +422,7 @@ suite('basic', () ->
     )
   )
 
-  suite('other', () ->
+  suite.only('other', () ->
     test('cache', (cb) ->
       gulp
       .src([
@@ -526,6 +526,32 @@ suite('basic', () ->
             'No template specified'
           )
       )
+    )
+
+    test('stream', (cb) ->
+      gulp
+      .src(path.join(__dirname, 'fixtures/fixture-content.js'), { buffer: false })
+      .pipe(rename((p) =>
+        p.basename = 'stream'
+        return
+      ))
+      .pipe(umd({ templateName: 'amd' }))
+      .pipe(gulp.dest(path.join(__dirname, 'found/other')))
+      .pipe(es.map((file, cb) ->
+        fs.readFile(path.join(__dirname, 'expected/other', file.basename), 'utf8', (err, data) ->
+          if err?
+            return cb(err)
+
+          assert.equal(
+            file.contents.toString().replace(/\r\n|\r/g, '\n')
+            data.toString().replace(/\r\n|\r/g, '\n')
+            'Did not produce the expected output'
+          )
+
+          cb(null, file)
+        )
+      ))
+      .on('end', cb)
     )
   )
 )

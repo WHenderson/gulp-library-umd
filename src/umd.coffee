@@ -207,7 +207,7 @@ wrap = (file, options, cb) ->
       it.mode[mode].factoryArgs.push(if lib? then arg else 'void 0')
 
   if gutil.isStream(file.contents)
-    es.wait((err, contents) ->
+    file.contents.pipe(es.wait((err, contents) ->
       if err?
         return cb(err)
 
@@ -215,7 +215,7 @@ wrap = (file, options, cb) ->
       rename(file, options)
       cb(null, file)
       return
-    )
+    ))
     return
   else
     render(file, it, file.contents)
