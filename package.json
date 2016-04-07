@@ -2,8 +2,15 @@
   "name": "gulp-library-umd",
   "version": "1.0.0",
   "description": "Gulp plugin for transforming node modules into various flavors of UMD (Universal Module Definition). Supports sourcemaps!",
+  "files": [
+    "dist"
+  ],
   "main": "dist/umd.js",
   "scripts": {
+    "preversion": "npm-git-library-version preversion",
+    "version": "npm-git-library-version version",
+    "postversion": "npm-git-library-version postversion",
+    "build": "gulp chained-1-build",
     "test": "gulp test"
   },
   "repository": {
@@ -26,17 +33,18 @@
   },
   "homepage": "https://github.com/WHenderson/gulp-library-umd#readme",
   "devDependencies": {
-    "del": "^2.2.0",
-    "gulp-rimraf": "^0.2.0",
     "chai": "^3.5.0",
     "coffee-coverage": "^1.0.1",
     "coffee-script": "^1.10.0",
+    "del": "^2.2.0",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-cli": "gulpjs/gulp-cli#4.0",
     "gulp-coffee": "^2.3.1",
     "gulp-rename": "^1.2.2",
+    "gulp-rimraf": "^0.2.0",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-spawn-mocha": "^2.2.2"
+    "gulp-spawn-mocha": "^2.2.2",
+    "npm-git-library-version": "^0.2.4"
   },
   "dependencies": {
     "dot": "^1.0.3",
