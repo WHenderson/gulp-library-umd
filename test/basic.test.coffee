@@ -318,4 +318,36 @@ suite('basic', () ->
       .on('end', cb)
     )
   )
+
+  suite.only('options', () ->
+    test('no indent', (cb) ->
+      gulp
+      .src(path.join(__dirname, 'fixtures/fixture-content.js'))
+      .pipe(rename((p) =>
+        p.basename = 'no-indent'
+        return
+      ))
+      .pipe(umd({
+        templateName: 'amd'
+        indent: false
+      }))
+      .pipe(sourceMaps.write())
+      .pipe(gulp.dest(path.join(__dirname, 'found/options')))
+      .pipe(es.map((file, cb) ->
+        fs.readFile(path.join(__dirname, 'expected/options', file.basename), 'utf8', (err, data) ->
+          if err?
+            return cb(err)
+
+          assert.equal(
+            file.contents.toString().replace(/\r\n|\r/g, '\n')
+            data.toString().replace(/\r\n|\r/g, '\n')
+            'Did not produce the expected output'
+          )
+
+          cb(null, file)
+        )
+      ))
+      .on('end', cb)
+    )
+  )
 )
