@@ -9,6 +9,7 @@ del = require('del')
 extend = require('extend')
 sourceMaps = require('gulp-sourcemaps')
 coffee = require('gulp-coffee')
+gdata = require('gulp-data')
 
 suite('basic', () ->
   umd = null
@@ -75,7 +76,6 @@ suite('basic', () ->
         ))
         .on('end', cb)
       catch err
-        console.log('hmm')
         if expectedError?
           assert.throws(
             () -> throw err
@@ -319,7 +319,7 @@ suite('basic', () ->
     )
   )
 
-  suite.only('options', () ->
+  suite('options', () ->
     test('no indent', (cb) ->
       gulp
       .src(path.join(__dirname, 'fixtures/fixture-content.js'))
@@ -335,6 +335,42 @@ suite('basic', () ->
       .pipe(gulp.dest(path.join(__dirname, 'found/options')))
       .pipe(es.map((file, cb) ->
         fs.readFile(path.join(__dirname, 'expected/options', file.basename), 'utf8', (err, data) ->
+          if err?
+            return cb(err)
+
+          assert.equal(
+            file.contents.toString().replace(/\r\n|\r/g, '\n')
+            data.toString().replace(/\r\n|\r/g, '\n')
+            'Did not produce the expected output'
+          )
+
+          cb(null, file)
+        )
+      ))
+      .on('end', cb)
+    )
+  )
+
+  suite('integration', () ->
+    test('gulp-data', (cb) ->
+      gulp
+      .src([
+        path.join(__dirname, 'fixtures/fixture-content.js'),
+        path.join(__dirname, 'fixtures/fixture-content.json')
+      ])
+      .pipe(rename((p) =>
+        p.basename = 'integration'
+        return
+      ))
+      .pipe(gdata((file) ->
+        switch path.extname(file.basename)
+          when '.json' then { templatePath: path.join(__dirname, 'fixtures/templates/simple-wrap-json.dot') }
+          when '.js' then { templatePath: path.join(__dirname, 'fixtures/templates/simple-wrap-js.dot') }
+      ))
+      .pipe(umd())
+      .pipe(gulp.dest(path.join(__dirname, 'found/integration')))
+      .pipe(es.map((file, cb) ->
+        fs.readFile(path.join(__dirname, 'expected/integration', file.basename), 'utf8', (err, data) ->
           if err?
             return cb(err)
 

@@ -256,7 +256,7 @@ pipe = (overrides) ->
           template = compile(data)
 
           if options.templateCache
-            cache[template] = template
+            cache[options.templatePath] = template
 
           options.template = template
 
