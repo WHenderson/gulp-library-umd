@@ -1,6 +1,6 @@
 {
   "name": "gulp-library-umd",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Gulp plugin for transforming node modules into various flavors of UMD (Universal Module Definition) by wrapping files in umd templates.",
   "files": [
     "dist"
