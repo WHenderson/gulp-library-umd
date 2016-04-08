@@ -1,5 +1,5 @@
 var result = {
-  libA: libA,
-  libB: libB,
-  libC: libC
+  A: libA,
+  B: libB,
+  B: libC
 };

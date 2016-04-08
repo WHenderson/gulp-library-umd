@@ -9,6 +9,7 @@ gulp.task('build', function () {
     .pipe(gulpData(function (file) {
       return {};
     }))
+    // optional source map support
     .pipe(gulpSourceMaps.init())
     // ...
     .pipe(gulpLibraryUmd({

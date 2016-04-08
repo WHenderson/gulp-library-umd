@@ -30,23 +30,91 @@ Wraps files with a specified UMD template.
 
 ## Usage
 
+[`gulpfile.js`](./examples/usage/gulpfile.js)
 ```js
 var gulp = require('gulp');
-var gulpSourceMaps = require('gulp-source-maps'); // optional
+var gulpSourceMaps = require('gulp-sourcemaps'); // optional
 var gulpData = require('gulp-data'); // optional
 var gulpLibraryUmd = require('gulp-library-umd')
 
 gulp.task('build', function () {
-  return gulp.src('src/**/*.js')
-  .pipe(gulpData(function (file) {
-     return {};
-  }))
-  .pipe(gulpSourceMaps.init())
-  ...
-  .pipe(gulpLibraryUmd({ templateName: 'umd' }))
-  .pipe(gulpSourceMaps.write())
-  .pipe(gulp.dest('dist'))
+  return gulp.src('source.js')
+    // optional per-file settings
+    .pipe(gulpData(function (file) {
+      return {};
+    }))
+    // optional source map support
+    .pipe(gulpSourceMaps.init())
+    // ...
+    .pipe(gulpLibraryUmd({
+      templateName: 'umd',
+      require: {
+        libA: 'libA',
+        libB: {
+          name: 'lib-b-default',
+          amd: 'lib-b-amd',
+          cjs: 'lib-b-cjs',
+          node: 'lib-b-node',
+          web: 'libBWeb'
+        }
+      },
+      exports: 'result',
+      namespace: 'myModuleGlobal'
+    }))
+    .pipe(gulpSourceMaps.write())
+    .pipe(gulp.dest('dist'))
 });
+```
+
+input: [`source.js`](./examples/usage/source.js)
+```js
+var result = {
+  A: libA,
+  B: libB,
+  B: libC
+};
+```
+
+**result**: [`dist/source.umd.js`](./examples/usage/source.js)
+```js
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    
+    define(["libA","lib-b-amd"], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    
+    module.exports = factory(require("libA"), require("lib-b-node"));
+  } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
+    // CommonJs
+    
+    (function (results) {
+      
+      for (var key in results) {
+        if ({}.hasOwnProperty.call(results, key))
+          exports[key] = results[key];
+      }
+      
+    })(factory(require("libA"), require("lib-b-cjs")));
+  } else {
+   // Browser globals
+   
+   root.myModuleGlobal = factory(root.libA, root.libBWeb);
+  }
+}(this, function (libA,libB) {
+  var result = {
+    A: libA,
+    B: libB,
+    B: libC
+  };
+  
+  return result;
+}));
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvdXJjZS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0VBQUE7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBIiwiZmlsZSI6InNvdXJjZS51bWQuanMiLCJzb3VyY2VSb290IjoiL3NvdXJjZS8iLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgcmVzdWx0ID0ge1xyXG4gIEE6IGxpYkEsXHJcbiAgQjogbGliQixcclxuICBCOiBsaWJDXHJcbn07XHJcbiJdfQ==
 ```
 
 ## Options
